@@ -1,0 +1,97 @@
+---
+title: Vacancy Metrics
+description: Complete reference for all vacancy-related metrics in Senzo
+---
+
+# Vacancy Metrics
+
+## FTE Vacancy Rate
+
+**Definition:** The percentage of budgeted FTE positions that are currently unfilled.
+
+**Formula:**
+```
+FTE Vacancy Rate = (Vacant FTE ÷ Total Positions) × 100
+```
+
+**Data sources:** `vacant_fte`, `positions`
+
+**Interpretation:**
+- Below 5%: Strong fill rate — normal operational range
+- 5–10%: Moderate vacancy — monitor for impact on workload
+- 10–15%: Elevated vacancy — recruitment prioritization warranted
+- Above 15%: Critical vacancy — direct impact on care delivery and staff overtime
+
+**Typical benchmarks:** Canadian acute care nursing vacancy rates averaged 8–12% in 2024–2025 (CIHI). Allied health and specialist roles typically run higher.
+
+**Displayed in:** Overview, Vacancy Analysis, Pulse Intelligence, Metrics Explorer
+
+---
+
+## Vacant FTE
+
+**Definition:** The number of funded FTE positions that are currently unfilled.
+
+**Formula:**
+```
+Vacant FTE = Total Positions − Filled FTE
+```
+
+**Data sources:** `positions`, `fte`
+
+**Interpretation:** Vacant FTE is the absolute count of unfilled positions. Use this alongside Vacancy Rate — a 10% vacancy rate means very different things at a unit of 5 FTE versus 50 FTE.
+
+**Displayed in:** Overview, Vacancy Analysis, Metrics Explorer
+
+---
+
+## FTE Fill Rate
+
+**Definition:** The percentage of budgeted FTE positions that are currently filled.
+
+**Formula:**
+```
+FTE Fill Rate = (Filled FTE ÷ Total Positions) × 100
+```
+
+**Relationship to Vacancy Rate:** FTE Fill Rate + FTE Vacancy Rate = 100%.
+
+**Displayed in:** Metrics Explorer
+
+---
+
+## Vacancy Count
+
+**Definition:** The number of individual unfilled headcount positions.
+
+**Formula:**
+```
+Vacancy Count = Positions (headcount) − Headcount
+```
+
+**Distinction from Vacant FTE:** Vacancy Count is headcount-based (integer). Vacant FTE is FTE-based (decimal). A 0.5 FTE part-time vacancy counts as 1 in Vacancy Count but 0.5 in Vacant FTE.
+
+**Displayed in:** Overview, Vacancy Analysis
+
+---
+
+## Critical Areas (>25%)
+
+**Definition:** Units or provider types where FTE Vacancy Rate exceeds 25%.
+
+**Threshold:** 25% — configurable in Alert Rules.
+
+**Purpose:** Identifies units at highest operational risk from vacancy. At 25%+ vacancy, patient safety and care continuity are directly affected.
+
+**Displayed in:** Vacancy Analysis, Pulse Intelligence warnings
+
+---
+
+## Notes on vacancy data quality
+
+Vacancy metrics are only as reliable as the `positions` data provided. If your source system does not track budgeted positions separately from filled positions, use `headcount` and `fte` only and acknowledge that vacancy metrics will not be available.
+
+Common data quality issues:
+- Positions not updated when roles are eliminated or created mid-year
+- Positions reflect approved budget, not funded establishment — these may differ
+- Part-time positions expressed as either headcount or FTE inconsistently

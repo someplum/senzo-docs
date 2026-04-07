@@ -1,0 +1,90 @@
+---
+title: Standard Template
+description: Column definitions, required fields, and format rules for the Senzo CSV template
+---
+
+# Standard Template
+
+The Senzo standard template is a CSV file with one row per combination of period, facility, unit, and provider type.
+
+## Download the template
+
+<Card title="Download workforce-metrics-template.csv" icon="download" href="https://app.senzohq.com/templates/workforce-metrics-template.csv">
+  Standard CSV template with all columns and example data
+</Card>
+
+## Required columns
+
+These columns must be present and populated for every row. Uploads missing required fields will fail validation.
+
+| Column | Format | Description |
+|---|---|---|
+| `date` | `YYYY-MM-01` | The first day of the period month. Always the 1st of the month regardless of actual period end. |
+| `unit_name` | Text | Name of the clinical unit or department. Must match a unit configured in Settings exactly. |
+| `provider_type_name` | Text | Staff role or provider category. Must match a provider type configured in Settings exactly. |
+| `headcount` | Integer | Number of employees in this unit/role combination at period end |
+
+## Optional columns
+
+Optional columns enrich the intelligence Senzo can surface. Include as many as your data source supports.
+
+| Column | Format | Description |
+|---|---|---|
+| `facility_name` | Text | Facility or site name. Required for multi-site organizations. |
+| `positions` | Decimal | Budgeted positions (FTE equivalent) |
+| `fte` | Decimal | Filled full-time equivalent at period end |
+| `vacant_fte` | Decimal | Unfilled FTE at period end |
+| `inflow_headcount` | Integer | New hires and transfers in during the period |
+| `outflow_headcount` | Integer | Departures and transfers out during the period |
+| `worked_hours` | Decimal | Total hours worked during the period |
+| `overtime_hours` | Decimal | Overtime hours worked during the period |
+| `agency_hours` | Decimal | Agency or temp staff hours during the period |
+| `absence_hours` | Decimal | Unplanned absence hours during the period |
+| `scheduled_hours` | Decimal | Total scheduled hours during the period |
+| `budgeted_fte` | Decimal | Budgeted FTE for the period |
+
+## Date format
+
+The `date` column must use `YYYY-MM-01` format — always the first of the month.
+
+| ✅ Accepted | ❌ Not accepted |
+|---|---|
+| `2026-02-01` | `02/01/2026` |
+| `2026-02-01` | `Feb 2026` |
+| `2026-02-01` | `202602` |
+
+<Note>
+  If your data source exports dates in a different format (YYYYMM, MM/DD/YYYY, Month YYYY), Senzo's AI upload analyzer will detect and convert them automatically. You do not need to reformat your file before uploading.
+</Note>
+
+## Unit and provider type matching
+
+The values in `unit_name` and `provider_type_name` must exactly match the names configured in **Settings → Organization Setup**.
+
+If Senzo encounters an unrecognized unit or provider type during import, it will flag the rows for review and offer to create the new entry in Settings automatically.
+
+## File structure rules
+
+- **One row per combination** of date + facility + unit + provider type
+- **No merged cells** — each cell must contain a single value
+- **No summary rows** — do not include Total, Grand Total, or Subtotal rows. Senzo detects and removes these automatically but it is better practice to exclude them.
+- **Column headers in row 1** — the first row must be the header row
+- **No blank rows** between data rows
+
+## Example rows
+
+```csv
+date,facility_name,unit_name,provider_type_name,headcount,positions,fte,vacant_fte,inflow_headcount,outflow_headcount,worked_hours,overtime_hours,agency_hours,absence_hours,scheduled_hours
+2026-02-01,Main Campus,Emergency Department,Registered Nurse,45,52,41.2,10.8,3,2,7480,1250,890,620,7680
+2026-02-01,Main Campus,Emergency Department,Health Care Aide,18,20,16.5,3.5,1,1,2960,180,0,210,3072
+2026-02-01,Main Campus,ICU,Registered Nurse,32,36,29.8,6.2,2,3,5280,980,440,510,5376
+```
+
+## Troubleshooting
+
+If your upload fails, see [Upload Errors](/troubleshooting/upload-errors) for the full error code reference.
+
+Most common issues:
+- Unit name casing doesn't match Settings (case-sensitive matching)
+- Date column contains non-date values in some rows
+- Decimal values use commas instead of periods as separators

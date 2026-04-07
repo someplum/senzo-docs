@@ -1,0 +1,99 @@
+---
+title: AI-Powered Upload
+description: How Senzo's intelligent schema detection works and how to read the mapping interface
+---
+
+# AI-Powered Upload
+
+Senzo's AI upload analyzer removes the need to reformat your data before uploading. It detects your file's structure, maps columns to Senzo's schema automatically, and handles common structural issues — all before a single row is written to the database.
+
+## How it works
+
+When you upload a file, Senzo:
+
+1. Reads the first 50 rows and all column headers
+2. Sends this sample to Claude (Anthropic's AI) for analysis
+3. Receives a structured mapping proposal with confidence scores
+4. Displays the mapping for your review and confirmation
+5. Applies any transformations before import
+
+The AI has no access to the rest of your data — only the headers and sample rows sent for analysis.
+
+## The mapping table
+
+After analysis completes, you'll see a table with one row per column in your file:
+
+| Column | Meaning |
+|---|---|
+| **Source Column** | The column name from your file |
+| **Mapped To** | The Senzo field this column maps to, or "Do not import" |
+| **Confidence** | How confident the AI is in this mapping (0–100%) |
+| **Transformation** | Any automatic conversion applied (e.g. date format, unit stripping) |
+
+### Confidence scores
+
+<AccordionGroup>
+  <Accordion title="🟢 Green (≥80%) — High confidence">
+    The AI is highly confident this mapping is correct. Common for standard column names like "Headcount", "FTE", "Unit", "Date".
+  </Accordion>
+  <Accordion title="🟡 Amber (50–79%) — Medium confidence">
+    The AI has a reasonable guess but isn't certain. Review these mappings before confirming. Common for abbreviations like "HC" (could be Headcount or Health Care) or "OT" (could be Overtime or Occupational Therapist).
+  </Accordion>
+  <Accordion title="🔴 Red (<50%) — Low confidence">
+    The AI could not reliably identify this column's purpose. Use the dropdown to select the correct target field, or select "Do not import" if the column isn't needed.
+  </Accordion>
+</AccordionGroup>
+
+### Overriding a mapping
+
+Click the dropdown in the **Mapped To** column to change any mapping. Available options are all target schema fields plus "Do not import".
+
+### Required fields warning
+
+If any required fields (date, unit_name, provider_type_name, headcount) are unmapped, they appear as a red warning list:
+
+> ⚠️ These required fields were not detected — please map them manually: unit_name, headcount
+
+The **Confirm Mapping and Continue** button is disabled until all required fields are mapped.
+
+## Structural issue detection
+
+The AI analyzer also detects common file structure problems and resolves them automatically:
+
+| Issue | What Senzo does |
+|---|---|
+| Blank rows at file start | Removed automatically |
+| Summary/Total rows | Detected and excluded |
+| Wide format (periods as columns) | Transposed to long format |
+| Date format variants | Normalized to YYYY-MM-01 |
+| Currency symbols in numeric fields | Stripped ($, £, €) |
+| Percentage signs in rate fields | Converted to decimal |
+
+Each resolved issue appears as an amber banner above the mapping table explaining what was detected and what was done.
+
+## Saved mappings
+
+After a successful upload, Senzo saves the mapping configuration for your organization. On subsequent uploads from the same source system (detected by matching column header patterns), the saved mapping is pre-loaded automatically.
+
+You'll see a banner:
+
+> "We recognized this file format — using your previous mapping. Review and confirm."
+
+Review the pre-loaded mapping and confirm or adjust as needed.
+
+## Skipping AI analysis
+
+If your file already matches the standard template exactly, click **"Skip AI Analysis — use standard template"** to bypass the AI step and proceed directly to Review. This is faster for organizations that export data in a consistent format every month.
+
+## Privacy and data handling
+
+- Only the first 50 rows and column headers are sent to the AI for analysis
+- The analysis request is processed server-side — your browser does not send data directly to Anthropic
+- No data is retained by Anthropic beyond the analysis call
+- The full file is processed within Senzo's infrastructure only
+
+## See also
+
+- [Standard Template](/data-ingestion/standard-template) — the column definitions the AI maps to
+- [Handling Structural Issues](/data-ingestion/handling-structural-issues) — detailed guide to structural normalization
+- [Upload Errors](/troubleshooting/upload-errors) — error codes and resolutions

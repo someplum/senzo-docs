@@ -1,0 +1,117 @@
+---
+title: Your First Upload
+description: Step-by-step guide to getting workforce data into Senzo
+---
+
+# Your First Upload
+
+This guide walks you through uploading your first workforce dataset. The process takes 5–15 minutes depending on how closely your data matches the standard format.
+
+## Before you start
+
+You'll need:
+- A CSV or Excel file containing workforce metrics data
+- At minimum: a date column, a unit or department column, and headcount figures
+- Access to the **Upload Data** section in the Senzo sidebar
+
+<Note>
+  If you don't have data ready yet, you can still explore the platform using your organization's demo data. Contact hello@senzohq.com to request a demo dataset pre-loaded for your organization.
+</Note>
+
+## Step 1 — Open Upload Data
+
+Click **Upload Data** in the left sidebar. You'll see the upload wizard and your upload history below.
+
+Click **Start Upload** to begin the 5-stage wizard.
+
+## Step 2 — Setup Check
+
+Senzo verifies your organization is correctly configured before accepting data:
+
+- **Facilities** — the physical sites in your organization (e.g. Main Campus, North Tower)
+- **Units** — the clinical departments within each facility (e.g. ICU, Emergency Department, Cardiology)
+- **Provider Types** — the staff categories you track (e.g. Registered Nurse, Physician, Health Care Aide)
+
+<Warning>
+  If any of these show zero configured items, go to **Settings** and add them before uploading. Senzo uses these to validate and categorize your data — unrecognized units or provider types will cause import errors.
+</Warning>
+
+If all three show green checkmarks, click **Start Upload**.
+
+## Step 3 — Select File
+
+Drag and drop your CSV or Excel file, or click to browse. Senzo accepts:
+- `.csv` — comma-separated values
+- `.xlsx` — Excel workbook
+- `.xls` — Legacy Excel format
+
+Maximum file size: 50MB. Files larger than this should be split by date range.
+
+## Step 4 — AI Analysis
+
+This is where Senzo's intelligence layer activates. The AI analyzes your file and:
+
+1. **Detects your column structure** — matches your column headers to Senzo's schema
+2. **Shows a mapping table** — each source column mapped to a target field with a confidence score
+3. **Flags structural issues** — wide format, date format variants, summary rows, and blank rows are detected and resolved automatically
+
+### Reading the mapping table
+
+| Color | Meaning |
+|---|---|
+| 🟢 Green (≥80%) | High confidence — mapping is almost certainly correct |
+| 🟡 Amber (50–79%) | Medium confidence — review before confirming |
+| 🔴 Red (<50%) | Low confidence — manual selection recommended |
+
+**Required fields** that weren't detected are shown as a red warning list. You must map these before proceeding.
+
+You can override any mapping using the dropdown next to each row.
+
+<Tip>
+  If your file is a standard export from a known system (UKG, Workday, SAP), Senzo may recognize the format from a previous upload and pre-populate the mapping automatically.
+</Tip>
+
+Click **Confirm Mapping and Continue** when satisfied.
+
+## Step 5 — Review
+
+Senzo shows a preview of the data as it will be imported:
+
+- Row count — how many records will be created
+- Date range — the period span covered
+- Units detected — which units appear in the data
+- Provider types detected — which provider types appear
+- Any validation warnings — fields that look unusual
+
+Review this carefully. If anything looks wrong, click **Back** to adjust the mapping.
+
+## Step 6 — Confirm & Import
+
+Click **Confirm & Import** to complete the upload. Senzo will:
+
+1. Process and validate all rows
+2. Match units and provider types to your configured lists
+3. Write to the database
+4. Trigger metric recalculation
+5. Show a success confirmation with a summary of what was imported
+
+<Check>
+  Your data is now in Senzo. Navigate to **Overview** to see your first dashboard populated with real data.
+</Check>
+
+## After uploading
+
+Once your first dataset is in:
+
+- **Overview** will show your current workforce metrics
+- **Pulse Intelligence** can be run to generate your first AI analysis — click **Re-run Pulse** in the top right
+- **Metrics Explorer** will show trend data if you have multiple periods
+
+## Troubleshooting
+
+If your upload fails, see [Upload Errors](/troubleshooting/upload-errors) for a full list of error codes and resolutions.
+
+Common issues:
+- Unit names in your file don't match the units configured in Settings — [see how to fix this](/troubleshooting/upload-errors#unit-mismatch)
+- Date format not recognized — [see supported date formats](/data-ingestion/handling-structural-issues#date-formats)
+- Required fields missing — [see required columns](/data-ingestion/standard-template#required-columns)

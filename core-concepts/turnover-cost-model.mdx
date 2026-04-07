@@ -1,0 +1,125 @@
+---
+title: Turnover Cost Model
+description: How Senzo calculates the true cost of workforce turnover by role and scenario
+---
+
+# Turnover Cost Model
+
+Senzo's Turnover Cost Model estimates the full financial cost of a single employee departure by role category. It uses a five-component formula based on published Canadian healthcare benchmarks and collective agreement data.
+
+<Note>
+  Cost estimates use Canadian benchmark parameters by default. If your organization has access to actual compensation and fill-time data, entering custom figures will produce more precise outputs. See [Cost Analytics](/features/cost-analytics) for how to override benchmarks.
+</Note>
+
+## The formula
+
+```
+C_event = C_sep + C_vac + C_acq + C_onboard + C_prod
+```
+
+| Component | Name | What it captures |
+|---|---|---|
+| C_sep | Separation Cost | Administrative and HR costs associated with the departure |
+| C_vac | Vacancy Coverage Cost | Premium cost of covering clinical load during the unfilled period |
+| C_acq | Acquisition Cost | All costs to find and secure a replacement |
+| C_onboard | Onboarding Cost | Cost to integrate the replacement to functional independence |
+| C_prod | Productivity Ramp Cost | Value of lost productivity before the replacement reaches full output |
+
+## Component definitions
+
+### C_sep — Separation Cost
+
+```
+C_sep = (exit_admin_hours × avg_manager_hourly_rate) + severance_applicable
+```
+
+Covers: HR exit processing time, manager time, any applicable severance. Default assumption: 8 hours of combined HR/manager time at $75/hr.
+
+Severance applies to involuntary departures only. The base model does not disaggregate voluntary from involuntary turnover.
+
+### C_vac — Vacancy Coverage Cost
+
+```
+C_vac = (backfill_daily_rate − base_daily_rate) × avg_vacancy_days
+```
+
+Covers: the premium cost of agency or overtime backfill during the unfilled period. The number of vacancy days varies significantly by role — specialist physicians average 270–548 days to fill; health care aides average 14–60 days.
+
+### C_acq — Acquisition Cost
+
+```
+C_acq = search_fee + advertising + interview_time_cost + signing_bonus + relocation
+```
+
+Covers: recruitment agency fees (15–25% of first-year compensation for physicians), job advertising, interview panel time (typically 20 hours at $75/hr), signing bonuses, and relocation allowances where applicable.
+
+### C_onboard — Onboarding Cost
+
+```
+C_onboard = (orientation_hours × trainer_rate) + (salary × orientation_fraction) + credentialing_lag_cost
+```
+
+Covers: structured orientation period (default 4 weeks), credentialing/privileging lag for regulated roles. Physicians in Manitoba typically require 28–84 days from hire to independent practice due to credentialing.
+
+### C_prod — Productivity Ramp Cost
+
+```
+C_prod = annual_compensation × ramp_period_years × (1 − avg_productivity_during_ramp)
+```
+
+<Warning>
+  C_prod is an **opportunity cost** — it represents foregone clinical value during the productivity ramp period, not a direct cash outlay. It is displayed separately from the cash components in Senzo's Cost Analytics to ensure correct interpretation.
+</Warning>
+
+## Scenarios
+
+Each role produces three cost estimates:
+
+| Scenario | Logic |
+|---|---|
+| **Conservative** | Lower-bound vacancy days, lower backfill premium, no signing bonus or relocation, productivity ramp at upper bound (75%) |
+| **Moderate** | Geometric mean of parameter bounds, signing bonus included at benchmark, ramp at midpoint |
+| **High** | Upper-bound vacancy days, upper-bound backfill premium, signing bonus and relocation included, productivity ramp at lower bound (50%) |
+
+## Canadian role benchmarks
+
+| Role | Annual Comp | Vacancy Days (mod) | Search Fee | Ramp Period |
+|---|---|---|---|---|
+| Registered Nurse | $85,000 | 90 days | None | 3 months |
+| Licensed Practical Nurse | $62,000 | 60 days | None | 2 months |
+| General Practitioner | $280,000 | 270 days | 15–20% | 6 months |
+| Specialist (mid-complexity) | $380,000 | 365 days | 15–20% | 12 months |
+| Specialist (high-complexity) | $520,000 | 548 days | 15–25% | 18 months |
+| Allied Health | $72,000 | 60 days | None | 4 months |
+| Health Care Aide | $48,000 | 30 days | None | 2 months |
+
+Compensation anchors are drawn from MNU and MGEU collective agreements and CIHI benchmark data. They are estimates — actual costs will vary by organization and region.
+
+## Annualized cost
+
+Senzo multiplies per-event cost by the number of observed departures in the last 12 months (pulled from your workforce_metrics data) to produce an annualized turnover cost estimate by role.
+
+## Retention break-even
+
+The retention break-even threshold answers: *how much could we invest in retention before it stops being cost-effective?*
+
+```
+Break-even = annualized_cost × 0.10
+```
+
+Any retention program that costs less than this figure — and achieves at least a 10% reduction in departures — is financially justified.
+
+## Methodological flags
+
+These limitations should be considered when presenting cost outputs to governance audiences:
+
+1. Compensation figures are benchmarks, not actuals — enter your own data for precision
+2. Vacancy days are scenario ranges reflecting fill-time uncertainty, not point estimates
+3. C_prod is opportunity cost, not a budget outlay
+4. The model does not disaggregate voluntary from involuntary turnover in its base form
+5. Rural and remote locum premiums can be 2–3× urban rates — not reflected in base model
+
+## See also
+
+- [Cost Analytics](/features/cost-analytics) — the full Turnover Cost tab in the platform
+- [How metrics are calculated](/core-concepts/how-metrics-are-calculated) — all metric definitions

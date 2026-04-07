@@ -1,0 +1,84 @@
+---
+title: Understanding Pulse Intelligence
+description: How to run and interpret your first AI workforce analysis
+---
+
+# Understanding Pulse Intelligence
+
+Pulse Intelligence is Senzo's AI-powered workforce analysis engine. It synthesizes all of your workforce metrics into a structured brief — surfacing warnings, strengths, wellbeing risks, and recommended actions automatically.
+
+## Running Pulse Intelligence
+
+Navigate to **Pulse Intelligence** in the sidebar. Click **Re-run Pulse** in the top right corner.
+
+Pulse Intelligence analyzes your most recent period's data and generates a complete brief. This typically takes 15–30 seconds.
+
+<Info>
+  Pulse Intelligence runs against your most recently uploaded data. If you've just completed your first upload, run Pulse now to see your first analysis.
+</Info>
+
+## Reading the output
+
+### Analysis Summary
+
+The top of the report shows:
+- **Date range analyzed** — the period covered
+- **Risk Level** — Overall, Low, Moderate, or High based on the number and severity of findings
+- **Summary statement** — a one-line description of overall workforce health
+
+### Warnings
+
+Warnings are conditions that exceed your configured thresholds — situations that warrant attention or action.
+
+Each warning shows:
+- **What was detected** — the metric and which units are affected
+- **Current value vs threshold** — the gap between where you are and where the threshold sits
+- **Duration** — how many consecutive months this condition has persisted
+- **Status** — Stable, Improving, or Worsening based on trend direction
+- **Breakdown by unit, provider type, and sector** — so you know exactly where to focus
+- **Recommended Actions** — specific steps the AI suggests based on the finding
+
+### Strengths
+
+Strengths are areas where your workforce metrics are performing well relative to thresholds or benchmarks — healthy turnover offset by strong hiring, top-performing units, favorable trends.
+
+These are worth noting as models for other parts of the organization.
+
+### Wellbeing Risks
+
+Units flagged for elevated burnout risk based on compounding signals — high overtime, elevated absence, and rising outflow occurring together in the same unit.
+
+Each wellbeing risk shows a **Risk Score** (0–100) and the contributing factors.
+
+### Workforce Snapshot
+
+Below the AI findings, Pulse Intelligence shows the raw workforce state for the analyzed period:
+
+- **Workforce Composition** — headcount, positions, FTE, vacancy
+- **Hours Summary** — worked, overtime, agency, absence, scheduled
+- **Workforce Flow** — inflow, outflow, transfers, net change
+- **By Sector** — headcount, FTE, OT rate, absence, and turnover by clinical sector
+- **By Unit** — the same breakdown at the unit level
+
+## Exporting the report
+
+Click **Export** in the top right to download the full Pulse Intelligence report as a PDF. This is formatted for board presentations and committee submissions.
+
+## Re-running Pulse
+
+Pulse Intelligence can be re-run at any time. Each run uses the most current data in the system. Re-running after a new data upload will reflect the new period's metrics.
+
+<Tip>
+  Pulse Intelligence runs are logged in your Activity Feed so your team can see when analyses were completed and who triggered them.
+</Tip>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Workforce Stress Indicators" icon="heart-pulse" href="/features/workforce-stress-indicators">
+    Deeper operational signals for burnout risk
+  </Card>
+  <Card title="Alert Rules" icon="sliders" href="/features/alert-rules">
+    Configure thresholds so Pulse flags the right conditions for your organization
+  </Card>
+</CardGroup>

@@ -1,0 +1,88 @@
+---
+title: How Senzo Works
+description: Understand the data flow from upload to intelligence
+---
+
+# How Senzo Works
+
+Senzo follows a simple three-stage flow: **ingest → process → surface**.
+
+## The data flow
+
+```
+Your source data                Senzo                        Your team
+─────────────────    ─────────────────────────────    ─────────────────────
+CSV / Excel files ──► AI schema detection         ──► Overview dashboard
+                  ──► Validation & quality check  ──► Pulse Intelligence
+                  ──► Aggregation by period        ──► Metrics Explorer
+                  ──► Metric calculation           ──► Report Builder
+                  ──► Threshold evaluation         ──► Alert Rules
+                                                   ──► Cost Analytics
+```
+
+## Stage 1 — Ingest
+
+Upload your workforce data as a CSV or Excel file. Senzo's AI-powered upload wizard:
+
+1. Detects your file's column structure automatically — even if it doesn't match the standard template
+2. Proposes a mapping from your columns to Senzo's schema with confidence scores
+3. Normalizes structural issues (wide format, date format variants, summary rows, blank rows)
+4. Validates required fields before import
+5. Checks for overlapping periods with existing data
+
+<Info>
+  You don't need to reformat your data before uploading. Senzo handles non-standard schemas, different date formats, and wide-format files automatically.
+</Info>
+
+## Stage 2 — Process
+
+Once data is uploaded, Senzo:
+
+- **Aggregates** metrics by period (monthly, quarterly, or annual), facility, unit, sector, and provider type
+- **Calculates** derived metrics including vacancy rate, overtime rate, absence rate, FTE fill rate, net flow, and cost per FTE
+- **Evaluates** each metric against configured thresholds to identify risks
+- **Scores** units using the Burnout Risk Index composite model
+- **Runs** Pulse Intelligence — an AI analysis that synthesizes all metrics into a structured workforce brief
+
+## Stage 3 — Surface
+
+Processed data becomes continuously available across every section of the platform:
+
+- **Overview** — the current state of your workforce in a single view
+- **Pulse Intelligence** — AI-generated warnings, strengths, and recommended actions
+- **Workforce Stress Indicators** — operational signals correlated with burnout risk
+- **Metrics Explorer** — longitudinal trend analysis across any metric and dimension
+- **Cost Analytics** — labor cost drivers and turnover cost modeling
+- **Report Builder** — custom report composition and export
+
+## Update frequency
+
+Senzo updates when you upload new data. There is no automatic data connection — data is uploaded manually or via scheduled file delivery. Most organizations upload monthly workforce metrics at the start of each month.
+
+<Tip>
+  Uploading data for overlapping periods is handled automatically. Senzo detects the overlap and asks whether to update existing records, add new ones, or skip.
+</Tip>
+
+## Data model
+
+Senzo's core data model is built around **workforce metrics by period, unit, and provider type**. Each row of data represents a specific combination of:
+
+| Dimension | Example values |
+|---|---|
+| Period | February 2026 |
+| Facility | Main Campus |
+| Unit | Emergency Department |
+| Provider Type | Registered Nurse |
+
+Each row carries the metric values for that combination: headcount, positions, FTE, vacancy, inflow, outflow, worked hours, overtime hours, agency hours, absence hours.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Your First Upload" icon="upload" href="/getting-started/your-first-upload">
+    Step-by-step guide to uploading your first dataset
+  </Card>
+  <Card title="Standard Template" icon="table" href="/data-ingestion/standard-template">
+    Download the standard CSV template and column definitions
+  </Card>
+</CardGroup>

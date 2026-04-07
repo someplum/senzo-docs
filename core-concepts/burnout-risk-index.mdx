@@ -1,0 +1,78 @@
+---
+title: Burnout Risk Index
+description: How Senzo calculates and interprets the composite Burnout Risk Index per unit
+---
+
+# Burnout Risk Index
+
+The Burnout Risk Index (BRI) is a composite operational metric that combines four workforce signals into a single 0–100 score per unit. It is designed to surface units where compounding pressures suggest elevated workforce stress risk — before those pressures result in turnover or patient care impact.
+
+<Warning>
+  The BRI is an operational metric derived from workforce data. It is correlated with workforce stress risk but is **not a clinical measure of employee wellbeing or burnout**. It should be used to prioritize operational attention, not to make clinical determinations about individual staff members.
+</Warning>
+
+## Formula
+
+```
+BRI = (OT_score × 0.30) + (absence_score × 0.25) + (outflow_score × 0.25) + (agency_score × 0.20)
+```
+
+Each component score is normalized on a 0–100 scale based on configured thresholds.
+
+## Component weights
+
+| Component | Weight | Rationale |
+|---|---|---|
+| Overtime rate | 30% | Sustained overtime is the strongest predictor of voluntary turnover in clinical roles |
+| Absence rate | 25% | Rising unplanned absence is an early indicator of workforce disengagement |
+| Outflow rate | 25% | Active departures directly compound workload pressure on remaining staff |
+| Agency dependency | 20% | Heavy agency use signals underlying staffing instability |
+
+## Scoring scale
+
+Each component is scored 0–100 using linear interpolation between the following anchor points:
+
+| Component | Score 0 | Score 50 | Score 100 |
+|---|---|---|---|
+| OT rate | ≤5% | Warning threshold | Critical threshold |
+| Absence rate | ≤3% | Warning threshold | Critical threshold |
+| Outflow rate | ≤1% | Warning threshold | Critical threshold |
+| Agency rate | ≤2% | Warning threshold | Critical threshold |
+
+Thresholds are configured in **Alert Rules**. The default values are set to healthcare industry benchmarks but can be adjusted for your organization.
+
+## Risk levels
+
+| BRI Score | Risk Level | Interpretation |
+|---|---|---|
+| 0–33 | 🟢 Low | No significant stress signals. Workforce is stable. |
+| 34–66 | 🟡 Moderate | One or more indicators elevated. Monitor closely and investigate dominant factor. |
+| 67–100 | 🔴 High | Multiple indicators compounding. Prioritize for operational intervention. |
+
+## Trend interpretation
+
+Each unit's BRI is compared to its previous period to determine trend:
+
+- **Improving** — BRI decreased by more than 3 points
+- **Stable** — BRI changed by 3 points or less in either direction
+- **Worsening** — BRI increased by more than 3 points
+
+## Dominant factor
+
+Each unit's BRI shows its **dominant factor** — the component contributing most to the overall score. This tells you where to focus: a unit with a high BRI driven by absence requires a different response than one driven by overtime.
+
+## Org-level BRI
+
+The organization-level BRI is a headcount-weighted average of all unit BRIs. It provides a system-wide stress signal but should always be interpreted alongside the unit-level breakdown — a moderate org-level score can mask a high-risk unit that needs immediate attention.
+
+## Limitations
+
+- The BRI does not disaggregate stress causes — it identifies signal clusters, not root causes
+- Units with very small headcounts may show volatile scores due to statistical sensitivity
+- The BRI is only as reliable as the data uploaded — data quality directly affects output quality
+- Geographic and seasonal factors are not accounted for in the base model
+
+## See also
+
+- [Workforce Stress Indicators](/features/workforce-stress-indicators) — the full UI for BRI analysis
+- [Thresholds and Alert Rules](/core-concepts/thresholds-and-alerts) — configuring the thresholds that drive component scores

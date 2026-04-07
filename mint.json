@@ -1,0 +1,143 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Senzo",
+  "logo": {
+    "dark": "/logo/senzo-logo-white.png",
+    "light": "/logo/senzo-logo.png"
+  },
+  "favicon": "/favicon.ico",
+  "colors": {
+    "primary": "#3E96A3",
+    "light": "#5BAEBB",
+    "dark": "#0D2F33",
+    "anchors": {
+      "from": "#3E96A3",
+      "to": "#5BAEBB"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:hello@senzohq.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Log in to Senzo",
+    "url": "https://app.senzohq.com/login"
+  },
+  "tabs": [
+    {
+      "name": "Documentation",
+      "url": "/"
+    },
+    {
+      "name": "Metrics Reference",
+      "url": "metrics-reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "senzohq.com",
+      "icon": "globe",
+      "url": "https://senzohq.com"
+    },
+    {
+      "name": "Book a Demo",
+      "icon": "calendar",
+      "url": "mailto:hello@senzohq.com?subject=Senzo Demo Request"
+    },
+    {
+      "name": "Support",
+      "icon": "envelope",
+      "url": "mailto:hello@senzohq.com"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/what-is-senzo",
+        "getting-started/how-senzo-works",
+        "getting-started/your-first-upload",
+        "getting-started/first-pulse-intelligence",
+        "getting-started/inviting-your-team"
+      ]
+    },
+    {
+      "group": "Core Concepts",
+      "pages": [
+        "core-concepts/how-metrics-are-calculated",
+        "core-concepts/period-types",
+        "core-concepts/dimension-filters",
+        "core-concepts/thresholds-and-alerts",
+        "core-concepts/burnout-risk-index",
+        "core-concepts/turnover-cost-model"
+      ]
+    },
+    {
+      "group": "Feature Guides",
+      "pages": [
+        "features/overview",
+        "features/pulse-intelligence",
+        "features/workforce-stress-indicators",
+        "features/metrics-explorer",
+        "features/cost-analytics",
+        "features/report-builder",
+        "features/alert-rules",
+        "features/data-explorer",
+        "features/upload-data"
+      ]
+    },
+    {
+      "group": "Data Ingestion",
+      "pages": [
+        "data-ingestion/supported-formats",
+        "data-ingestion/standard-template",
+        "data-ingestion/ai-powered-upload",
+        "data-ingestion/handling-structural-issues",
+        "data-ingestion/upload-history",
+        "data-ingestion/data-quality"
+      ]
+    },
+    {
+      "group": "Metrics Reference",
+      "pages": [
+        "metrics-reference/workforce-composition",
+        "metrics-reference/vacancy-metrics",
+        "metrics-reference/overtime-metrics",
+        "metrics-reference/absence-metrics",
+        "metrics-reference/workforce-flow",
+        "metrics-reference/labor-cost-metrics",
+        "metrics-reference/productivity-metrics"
+      ]
+    },
+    {
+      "group": "Security & Compliance",
+      "pages": [
+        "security/data-handling",
+        "security/role-based-access",
+        "security/hipaa",
+        "security/soc2"
+      ]
+    },
+    {
+      "group": "Troubleshooting",
+      "pages": [
+        "troubleshooting/upload-errors",
+        "troubleshooting/data-not-appearing",
+        "troubleshooting/pulse-intelligence-issues",
+        "troubleshooting/common-questions"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "linkedin": "https://www.linkedin.com/company/senzohq"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  },
+  "search": {
+    "prompt": "Search Senzo documentation..."
+  }
+}

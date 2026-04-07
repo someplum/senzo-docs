@@ -1,0 +1,134 @@
+---
+title: Upload Errors
+description: Full reference for upload error codes and how to resolve them
+---
+
+# Upload Errors
+
+This page covers every error code you may encounter during a Senzo data upload and how to resolve each one.
+
+## Validation errors (pre-import)
+
+These errors are caught before any data is written. Fix the file and re-upload.
+
+### MISSING_REQUIRED_FIELD
+
+**Message:** "Required field [field_name] is missing or empty in [N] rows"
+
+**Cause:** One or more required columns (`date`, `unit_name`, `provider_type_name`, or `headcount`) have empty values in some rows.
+
+**Resolution:** Open your file, filter for empty values in the named column, and fill them in. Rows with blank required fields cannot be imported.
+
+---
+
+### INVALID_DATE_FORMAT
+
+**Message:** "Date format not recognized in column [column_name]"
+
+**Cause:** The date column contains values that Senzo could not parse. This usually occurs when dates are stored as text in an inconsistent format.
+
+**Resolution:** Ensure all dates follow `YYYY-MM-01` format. Senzo's AI analyzer will detect and convert common formats automatically — if you're getting this error, the dates may be genuinely malformed (e.g. `0000-00-00`, `N/A`, or mixed formats in the same column).
+
+---
+
+### UNIT_NOT_FOUND \{#unit-mismatch\}
+
+**Message:** "Unit '[unit_name]' not found in your organization configuration"
+
+**Cause:** A unit name in your file doesn't match any unit configured in Settings. This is case-sensitive and whitespace-sensitive.
+
+**Resolution:** Either:
+1. Go to **Settings → Organization Setup → Units** and add the missing unit, or
+2. Update your file to use the exact unit name as configured in Settings
+
+Senzo will offer to create the unrecognized unit automatically during the Review stage of the upload wizard.
+
+---
+
+### PROVIDER_TYPE_NOT_FOUND
+
+**Message:** "Provider type '[name]' not found in your organization configuration"
+
+**Cause:** Same as UNIT_NOT_FOUND but for provider types.
+
+**Resolution:** Either add the provider type in Settings or update the file to match an existing provider type name exactly.
+
+---
+
+### NEGATIVE_VALUE
+
+**Message:** "Negative values detected in [column_name]"
+
+**Cause:** Numeric columns like `headcount`, `fte`, `worked_hours` contain negative values, which are not valid for these fields.
+
+**Resolution:** Review the flagged rows. Negative values usually indicate a data export issue from the source system — they may represent adjustments or corrections that should be excluded.
+
+---
+
+### DUPLICATE_ROWS
+
+**Message:** "[N] duplicate rows detected (same date + unit + provider type combination)"
+
+**Cause:** Your file contains multiple rows for the same date/unit/provider type combination.
+
+**Resolution:** Deduplicate your file before uploading. If duplicates are intentional (e.g. different shifts), these need to be aggregated into a single row per combination.
+
+---
+
+## Import errors (during processing)
+
+These errors occur after validation passes but during the database write.
+
+### OVERLAP_DETECTED
+
+**Message:** "Data for [period] already exists for [N] unit/provider combinations"
+
+**Cause:** You are uploading data for a period that is already in the system.
+
+**Resolution:** The wizard will present three options:
+1. **Update** — overwrite existing records with the new file's values
+2. **Skip** — keep existing records, skip rows that would overwrite them
+3. **Cancel** — abort the upload entirely
+
+Choose Update if the new file is a correction of previously uploaded data.
+
+---
+
+### PARTIAL_IMPORT
+
+**Message:** "Import completed with [N] rows skipped"
+
+**Cause:** Some rows passed validation but could not be written due to a constraint (e.g. a unit was deactivated between validation and import).
+
+**Resolution:** Check the upload history for a list of skipped rows. This is usually a non-critical error — the majority of data was imported successfully.
+
+---
+
+## AI analysis issues
+
+### LOW_CONFIDENCE_MAPPING
+
+**Message:** Not an error — displayed as a warning banner in the AI Analysis stage.
+
+**Cause:** The AI analyzer could not map one or more required fields with high confidence.
+
+**Resolution:** Review the mapping table manually and use the dropdown to select the correct target field for any red or amber rows. You must map all required fields before proceeding.
+
+---
+
+### AI_ANALYSIS_FAILED
+
+**Message:** "AI analysis unavailable — using standard template mode"
+
+**Cause:** The AI schema detection service was temporarily unavailable.
+
+**Resolution:** Click "Skip AI Analysis — use standard template" to proceed with the standard column mapping. Your file must match the standard template format for this to work.
+
+---
+
+## Still stuck?
+
+If you're seeing an error not listed here, contact support at hello@senzohq.com with:
+- The error message text
+- The name of the file you were uploading (don't send the file itself if it contains sensitive data)
+- The date and time of the upload attempt
