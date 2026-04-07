@@ -1,12 +1,86 @@
 ---
 title: Absence Metrics
-description: Absence hours, absence rate, and pattern analysis
+description: Absence hours, absence rate, and pattern analysis definitions
 ---
 
 # Absence Metrics
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Absence Hours
 
-Full documentation for this section is coming soon.
+**Definition:** Total unplanned absence hours in a period — shifts missed due to illness, injury, or other unplanned leave.
+
+**Source field:** `absence_hours`
+
+**Notes:**
+- Include only **unplanned** absences — sick leave, short-term disability, occupational injury
+- Exclude planned leave (vacation, statutory holidays, approved leaves of absence)
+- Exclude scheduled days off
+- Agency hours used to backfill absences should be tracked in `agency_hours`, not `absence_hours`
+
+**Displayed in:** Overview, Metrics Explorer, Pulse Intelligence, Workforce Stress Indicators
+
+---
+
+## Absence Rate
+
+**Definition:** Unplanned absence hours as a percentage of scheduled hours.
+
+**Formula:**
+```
+Absence Rate = (absence_hours ÷ scheduled_hours) × 100
+```
+
+**Benchmarks:**
+- Below 3%: Low — healthy range
+- 3–5%: Moderate — typical for most healthcare settings
+- 5–8%: Elevated — above benchmark, warrants investigation
+- Above 8%: High — associated with workforce stress, burnout, and attrition risk
+
+**Interpretation:** Absence Rate is one of the most reliable early indicators of workforce health. A sustained increase over 60–90 days typically precedes a measurable increase in voluntary turnover.
+
+**Displayed in:** Overview, Pulse Intelligence, Workforce Stress Indicators, Metrics Explorer
+
+<Warning>
+  Absence Rate requires `scheduled_hours` to calculate. If scheduled hours are not in your data, Senzo cannot display this metric. Include scheduled hours in your upload template to enable absence rate tracking.
+</Warning>
+
+---
+
+## Absence Pattern Analysis
+
+Senzo's Workforce Stress Indicators section includes an **Absence Pattern Analysis** view that shows:
+
+- 12-month trend lines for the top 5 highest-absence units
+- A reference line at the warning threshold
+- Units where absence has trended upward for 3+ consecutive months — flagged as sustained absence pressure
+
+**Why patterns matter more than point-in-time values:** A single elevated month may reflect a flu season or isolated incident. Three consecutive months of increasing absence is a structural signal that warrants operational investigation.
+
+---
+
+## Absence vs. other leave types
+
+Senzo tracks unplanned absence only. Other leave types your payroll system may track:
+
+| Leave type | Include in absence_hours? |
+|---|---|
+| Sick leave (unplanned) | ✅ Yes |
+| Short-term disability | ✅ Yes |
+| Occupational injury/WCB | ✅ Yes |
+| Vacation | ❌ No |
+| Statutory holiday | ❌ No |
+| Approved leave of absence | ❌ No |
+| Bereavement | ❌ No (discretionary) |
+| Jury duty | ❌ No |
+
+---
+
+## Absence and burnout risk
+
+Absence rate is weighted at **25%** of the Burnout Risk Index score. Research consistently shows that unplanned absence is an early indicator of:
+
+- Workforce disengagement
+- Burnout accumulation
+- Impending voluntary turnover
+
+Units with rising absence rates over 2–3 months should be examined alongside overtime rate and outflow data to assess compounding stress signals. See [Burnout Risk Index](/core-concepts/burnout-risk-index) for the full composite model.

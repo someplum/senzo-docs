@@ -5,8 +5,53 @@ description: How Senzo aggregates data across monthly, quarterly, and annual per
 
 # Period Types
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Senzo supports three period granularities: **Monthly**, **Quarterly**, and **Annual**. The period type you select affects how data is aggregated and displayed across the platform.
 
-Full documentation for this section is coming soon.
+## Monthly
+
+The default view. Each data point represents one calendar month.
+
+- Most granular view — best for operational monitoring
+- Shows the most recent trends and month-over-month changes
+- Used by Pulse Intelligence for its analysis
+- Recommended for: Overview, Pulse Intelligence, Alert Rules
+
+## Quarterly
+
+Groups months into standard calendar quarters (Q1: Jan–Mar, Q2: Apr–Jun, Q3: Jul–Sep, Q4: Oct–Dec).
+
+- Smooths out month-to-month noise
+- Better for identifying seasonal patterns
+- Recommended for: Metrics Explorer trend analysis, board reporting
+
+## Annual
+
+Aggregates all months within a calendar year into a single data point.
+
+- Highest level view — best for strategic planning and year-over-year comparison
+- Labor costs in Annual view are annualized estimates
+- Recommended for: Cost Analytics, Report Builder, Forecast planning
+
+## How aggregation works by period type
+
+| Metric type | Monthly | Quarterly | Annual |
+|---|---|---|---|
+| Headcount, FTE, positions | Last month in period | Last month in period | Last month in period |
+| Hours (worked, OT, agency, absence) | Month total | Quarter sum | Year sum |
+| Inflow / Outflow | Month count | Quarter sum | Year sum |
+| Rates (OT%, vacancy%, absence%) | Recalculated from period totals | Recalculated from quarter totals | Recalculated from year totals |
+
+## Where period type is selected
+
+- **Overview** — Monthly / Annual toggle in the top right
+- **Metrics Explorer** — "View by" selector: Monthly / Quarterly / Annual
+- **Labor Cost Analytics** — Monthly / Annual toggle
+- **Report Builder** — Granularity selector in the config panel
+
+## Period type and data upload
+
+Data is uploaded at the **monthly** level — one row per month per unit/provider type combination. Senzo calculates quarterly and annual views by aggregating the underlying monthly records. You do not need to upload data in quarterly or annual format.
+
+<Note>
+  If your organization tracks data quarterly rather than monthly, upload one row per quarter per unit/provider type. Senzo will treat each row as a single period and quarterly/annual views will aggregate accordingly.
+</Note>

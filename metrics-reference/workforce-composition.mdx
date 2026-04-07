@@ -5,8 +5,79 @@ description: Headcount, positions, FTE, and fill rate definitions
 
 # Workforce Composition Metrics
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Headcount
 
-Full documentation for this section is coming soon.
+**Definition:** The number of individual employees in a unit/role combination at the end of the period.
+
+**Type:** Integer count — one person = one headcount regardless of FTE status.
+
+**Notes:**
+- A 0.5 FTE part-time employee counts as 1 headcount
+- Headcount counts people, FTE counts capacity
+- Use headcount for understanding team size; use FTE for capacity planning
+
+**Displayed in:** Overview, Metrics Explorer, Data Explorer, Pulse Intelligence
+
+---
+
+## Positions
+
+**Definition:** The number of budgeted or authorized positions for a unit/role combination.
+
+**Type:** Decimal — positions can be fractional (e.g. 2.5 positions = two full-time and one half-time).
+
+**Notes:**
+- Positions represent funded establishment, not necessarily current budget approval
+- Some organizations track positions as headcount positions (integer) rather than FTE positions (decimal) — be consistent
+- The gap between positions and filled FTE is the basis for vacancy calculations
+
+**Displayed in:** Overview, Vacancy Analysis, Metrics Explorer
+
+---
+
+## Filled FTE
+
+**Definition:** The full-time equivalent of the current employed workforce.
+
+**Formula:**
+```
+FTE = sum of (hours_per_week ÷ full_time_standard_hours) for each employee
+```
+
+In practice, FTE is typically provided directly from your HRIS or payroll system rather than calculated in Senzo.
+
+**Notes:**
+- Standard full-time hours vary by collective agreement — typically 37.5 or 40 hours/week
+- A 0.8 FTE employee works 80% of full-time hours
+- FTE is the most meaningful measure of workforce capacity
+
+**Displayed in:** Overview, Metrics Explorer, Pulse Intelligence
+
+---
+
+## Budgeted FTE
+
+**Definition:** The FTE capacity that has been budgeted for the period, which may differ from authorized positions.
+
+**Notes:**
+- Budgeted FTE reflects financial planning; positions reflect operational establishment
+- In many health systems these differ — funded positions may be held vacant for budget reasons
+- Upload as `budgeted_fte` if your system tracks this separately
+
+**Displayed in:** Metrics Explorer
+
+---
+
+## FTE Vacancy Rate
+
+See [Vacancy Metrics](/metrics-reference/vacancy-metrics) for full definition and formula.
+
+---
+
+## Notes on composition data quality
+
+Common issues with composition data:
+
+- **Headcount includes temporary or agency staff** — ideally exclude agency staff from headcount; track their hours separately in `agency_hours`
+- **FTE not updated mid-period** — FTE should reflect the end-of-period state, not an average
+- **Positions not maintained** — if your organization doesn't actively maintain a position register, vacancy metrics will be unreliable

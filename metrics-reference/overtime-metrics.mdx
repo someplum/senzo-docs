@@ -5,8 +5,97 @@ description: OT hours, OT rate, and premium labor definitions
 
 # Overtime Metrics
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Overtime Hours
 
-Full documentation for this section is coming soon.
+**Definition:** The total hours worked beyond the standard scheduled shift in a period, compensated at a premium rate.
+
+**Source field:** `overtime_hours`
+
+**Notes:**
+- Definition of overtime varies by collective agreement — typically hours beyond 7.5 or 8 per shift, or beyond 37.5/40 per week
+- Include all overtime regardless of whether it was pre-approved or unplanned
+- Exclude agency hours from overtime — track these separately in `agency_hours`
+
+**Displayed in:** Overview, Cost Analytics, Metrics Explorer, Pulse Intelligence
+
+---
+
+## Overtime Rate
+
+**Definition:** Overtime hours as a percentage of total worked hours.
+
+**Formula:**
+```
+OT Rate = (overtime_hours ÷ worked_hours) × 100
+```
+
+**Benchmarks:**
+- Below 5%: Low — typical operational range
+- 5–10%: Moderate — monitor for sustainability
+- 10–15%: Elevated — associated with increased burnout risk
+- Above 15%: Critical — direct patient safety and retention implications
+
+**Interpretation:** OT Rate tells you what proportion of clinical work is being delivered at a premium cost. A sustained OT Rate above 10% typically indicates a structural staffing gap — not a scheduling issue.
+
+**Displayed in:** Overview, Pulse Intelligence, Workforce Stress Indicators, Metrics Explorer
+
+---
+
+## OT Hours per FTE
+
+**Definition:** The average number of overtime hours worked per filled FTE in a period.
+
+**Formula:**
+```
+OT Hours per FTE = overtime_hours ÷ fte
+```
+
+**Notes:** Useful for identifying units where overtime is concentrated among a small number of staff — a warning sign for individual burnout risk even when the unit-level OT Rate looks moderate.
+
+**Displayed in:** Metrics Explorer (calculated on demand)
+
+---
+
+## OT Cost
+
+**Definition:** The estimated cost of overtime hours at the applicable premium rate.
+
+**Formula:**
+```
+OT Cost = overtime_hours × (hourly_rate × overtime_premium)
+```
+
+Default overtime premium: 1.5× base rate. This can be adjusted in Cost Analytics settings if your collective agreements use a different rate.
+
+**Displayed in:** Cost Analytics — Labor Cost tab
+
+---
+
+## Premium labor and agency combined
+
+Senzo tracks overtime and agency spend as distinct categories but surfaces them together as **Premium Labor** in Cost Analytics — the total cost of workforce coverage above base rates.
+
+```
+Premium Labor Spend = OT Cost + Agency Cost
+Premium Labor % = (Premium Labor Spend ÷ Total Labor Cost) × 100
+```
+
+The insight line in Labor Cost Analytics shows the FTE equivalent of combined premium spend:
+```
+Premium FTE Equivalent = Premium Labor Spend ÷ Cost per FTE
+```
+
+This answers: "how many FTE could we fund with the money we're spending on premium labor?"
+
+---
+
+## Why overtime clusters
+
+OT rarely distributes evenly. It clusters in units experiencing:
+
+1. **Vacancy pressure** — open positions covered by overtime of remaining staff
+2. **Absence spikes** — unplanned absences backfilled by overtime
+3. **Census surges** — patient volume exceeding base staffing plan
+4. **Scheduling constraints** — collective agreement rules limiting float pool access
+
+Understanding the driver determines the response. Senzo's Pulse Intelligence analyzes OT alongside vacancy and absence data to identify the likely cause.

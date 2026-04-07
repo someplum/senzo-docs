@@ -1,12 +1,60 @@
 ---
 title: Role-Based Access Control
-description: User roles, permissions, and access management
+description: User roles, permissions, and access management in Senzo
 ---
 
 # Role-Based Access Control
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Senzo uses role-based access control (RBAC) to ensure users can access the features and data appropriate for their responsibilities.
 
-Full documentation for this section is coming soon.
+## User roles
+
+### Admin
+
+Full platform access. Admins can:
+- View all dashboards, reports, and intelligence features
+- Upload and manage workforce data
+- Configure settings (facilities, units, provider types, thresholds)
+- Invite and manage users
+- Access the admin activity log
+
+Recommended for: VP Workforce, Director of HR, system administrators
+
+### Analyst
+
+Read-only access to all analytical features. Analysts can:
+- View all dashboards, reports, and intelligence features
+- Export data and reports
+- Run Pulse Intelligence
+
+Analysts cannot upload data, change settings, or manage users.
+
+Recommended for: Workforce analysts, finance directors, CNOs who need full visibility
+
+### Viewer
+
+Read-only access to high-level summaries. Viewers can:
+- View the Overview dashboard
+- View Pulse Intelligence reports
+
+Viewers cannot access Metrics Explorer, Cost Analytics, Data Explorer, or any settings.
+
+Recommended for: Senior executives who need a summary view without platform depth
+
+## Managing users
+
+Admins can manage users from **Settings → Users**:
+
+- **Invite** — enter email and select role to send an invitation
+- **Change role** — click the role dropdown next to any user to change their access level
+- **Remove** — click the remove icon to revoke access immediately
+
+## Organization isolation
+
+Users are scoped to a single organization. A user cannot access data from another organization unless they are separately invited to that organization's account.
+
+There is no cross-organization visibility for any user role — including Admin.
+
+## Super Admin
+
+Super Admin is a Senzo platform-level role available only to Senzo staff. It provides visibility across all organizations for support and platform management purposes. Super Admin access is not available to customers.

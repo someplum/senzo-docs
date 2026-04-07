@@ -1,12 +1,125 @@
 ---
 title: Labor Cost Metrics
-description: Total labor cost, cost per FTE, agency cost, and premium labor
+description: Total labor cost, cost per FTE, agency cost, and premium labor definitions
 ---
 
 # Labor Cost Metrics
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Total Labor Cost
 
-Full documentation for this section is coming soon.
+**Definition:** The estimated total cost of all labor in a period, including regular wages, overtime premiums, and agency spend.
+
+**Formula:**
+```
+Total Labor Cost = Regular Labor Cost + Overtime Cost + Agency Cost
+```
+
+**Notes:**
+- Senzo estimates labor cost from hours and benchmark compensation rates if actual cost data is not uploaded
+- For precise figures, provide actual payroll cost data in your upload
+- Monthly and Annual views are toggled in the Labor Cost Analytics section
+
+**Displayed in:** Overview (summary), Cost Analytics — Labor Cost tab
+
+---
+
+## Cost per FTE
+
+**Definition:** Average labor cost per filled FTE for the period.
+
+**Formula:**
+```
+Cost per FTE = Total Labor Cost ÷ Filled FTE
+```
+
+**Monthly vs Annual:**
+- Monthly Cost per FTE: total monthly cost ÷ FTE
+- Annual Cost per FTE: annualized cost ÷ FTE (equivalent to annual salary)
+
+**Displayed in:** Cost Analytics — Labor Cost tab
+
+---
+
+## Overtime Cost
+
+**Definition:** The estimated cost of all overtime hours at the applicable premium rate.
+
+**Formula:**
+```
+OT Cost = overtime_hours × hourly_rate × overtime_premium_multiplier
+```
+
+Default premium: 1.5×. Adjustable in Cost Analytics settings.
+
+**As % of labor cost:**
+```
+OT Cost % = (OT Cost ÷ Total Labor Cost) × 100
+```
+
+Benchmark: OT cost above 12% of total labor cost warrants operational review.
+
+**Displayed in:** Cost Analytics — Labor Cost tab, Overview summary card
+
+---
+
+## Agency Cost
+
+**Definition:** The estimated cost of agency or temporary staff hours.
+
+**Formula:**
+```
+Agency Cost = agency_hours × agency_hourly_rate
+```
+
+Agency rates are typically 40–80% above equivalent employed staff rates. Default agency premium: 50% above base rate. Adjustable in Cost Analytics settings.
+
+**As % of labor cost:**
+```
+Agency Cost % = (Agency Cost ÷ Total Labor Cost) × 100
+```
+
+**Displayed in:** Cost Analytics — Labor Cost tab, Overview summary card
+
+---
+
+## Premium Labor Spend
+
+**Definition:** The combined cost of overtime and agency — all labor delivered above base employed rates.
+
+**Formula:**
+```
+Premium Labor Spend = OT Cost + Agency Cost
+```
+
+**FTE Equivalent of Premium Spend:**
+```
+Premium FTE Equivalent = Premium Labor Spend ÷ Cost per FTE
+```
+
+This is the insight displayed in the Labor Cost Analytics card: "OT and agency spend this month ($X) is equivalent to approximately Y FTE at average cost."
+
+This number answers a powerful governance question: could we afford to hire the FTE we're replacing with premium labor?
+
+**Displayed in:** Cost Analytics — Labor Cost tab, Overview summary card
+
+---
+
+## Cost Breakdown bar
+
+The cost breakdown bar in Labor Cost Analytics shows the proportion of total labor cost attributable to:
+
+- **Regular** (teal) — base employed labor
+- **Overtime** (amber) — premium overtime hours
+- **Agency** (indigo) — temporary and agency staff
+
+---
+
+## Notes on cost data reliability
+
+Labor cost figures in Senzo are estimates unless actual payroll data is uploaded. Estimate accuracy depends on:
+
+- **Compensation benchmark accuracy** — Senzo uses collective agreement rates as defaults; actual compensation varies by seniority and step
+- **Benefits not included** — Senzo estimates wages only; employer benefits costs (typically 20–30% of wages) are not included unless provided
+- **Geographic variation** — rates are Canadian national benchmarks; rural and remote premiums are not reflected in base calculations
+
+For governance-level reporting, supplement Senzo's estimates with actual payroll data from your finance system.

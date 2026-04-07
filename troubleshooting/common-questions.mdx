@@ -5,8 +5,99 @@ description: Frequently asked questions about Senzo
 
 # Common Questions
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Getting started
 
-Full documentation for this section is coming soon.
+### Do I need to reformat my data before uploading?
+
+No. Senzo's AI-powered upload analyzer detects your file's column structure automatically and maps it to Senzo's schema. It handles common structural issues including different date formats, wide-format files, summary rows, and non-standard column names. You can upload exports directly from most HRIS and scheduling systems without reformatting.
+
+### What's the minimum data I need to get started?
+
+At minimum, you need a date column, a unit or department column, and headcount figures. Senzo will work with this but additional fields (FTE, worked hours, overtime hours, inflow/outflow) unlock more metrics. The more fields you provide, the richer the intelligence Senzo can surface.
+
+### How often should I upload data?
+
+Most organizations upload monthly workforce metrics at the start of each month for the prior month. This keeps the platform continuously updated. Weekly uploads are supported for organizations with high-frequency operational needs.
+
+### Can I upload data for multiple time periods at once?
+
+Yes. A single upload file can span multiple months — include all periods in one file and Senzo will process each period row correctly.
+
+---
+
+## Data and metrics
+
+### Why does my vacancy rate look different in Senzo vs our internal reports?
+
+Most commonly because of a difference in calculation methodology. Senzo calculates FTE Vacancy Rate as `(vacant_fte ÷ positions) × 100`. If your internal reports use headcount positions instead of FTE, or use a different denominator, the numbers will differ. Check [How Metrics Are Calculated](/core-concepts/how-metrics-are-calculated) for the exact formulas.
+
+### Why are some metrics showing as unavailable?
+
+Metrics that require specific source fields will show as unavailable if those fields weren't in your upload. Common examples:
+- Absence Rate requires `scheduled_hours`
+- OT Rate requires `worked_hours`
+- Vacancy Rate requires `positions`
+
+Upload a file that includes these fields to enable the metrics.
+
+### Why does the aggregated OT rate look different from the unit-level rates?
+
+Because Senzo correctly uses weighted averaging rather than simple averaging. The aggregated rate is recalculated from the sum of overtime hours and worked hours — not the average of individual unit rates. This is the mathematically correct approach. See [How Metrics Are Calculated](/core-concepts/how-metrics-are-calculated) for details.
+
+### Can I see historical data going back further than what I've uploaded?
+
+Senzo shows all data that has been uploaded. To see further historical trends, upload historical data files for prior periods. There is no limit to how far back you can upload.
+
+---
+
+## Pulse Intelligence
+
+### How does Pulse Intelligence decide what to flag as a warning?
+
+Pulse Intelligence compares each metric against your configured thresholds. Metrics exceeding a warning or critical threshold generate findings. It also looks for compounding signals — units where multiple metrics are elevated simultaneously — which generate wellbeing risk flags. See [Thresholds and Alert Rules](/core-concepts/thresholds-and-alerts) for the threshold defaults.
+
+### Can I re-run Pulse Intelligence after changing thresholds?
+
+Yes. Click **Re-run Pulse** in the top right of the Pulse Intelligence page at any time. The new run will use your current threshold settings.
+
+### Why didn't Pulse Intelligence flag a unit I know is struggling?
+
+Either the metrics for that unit are below the configured thresholds, or the required data isn't in the system. Check the unit's metrics in Data Explorer or Metrics Explorer to see what Senzo has for it. If data is missing, a new upload should resolve it.
+
+---
+
+## Platform
+
+### Who can see our data?
+
+Only users invited to your organization can access your data. Each organization's data is completely isolated — users at other organizations cannot see your data. See [Role-Based Access Control](/security/role-based-access) for user permission details.
+
+### Can I export data from Senzo?
+
+Yes. The Report Builder supports PDF and CSV export. The Metrics Explorer has an Export button. Data Explorer data can be browsed and downloaded. Pulse Intelligence reports can be exported as PDF.
+
+### How do I add a new facility or unit?
+
+Go to **Settings → Organization Setup** and add the facility or unit there. Once added, it will be available for use in uploads and will appear in the dimension filters across the platform.
+
+### What happens if I upload data with a unit name that doesn't match Settings?
+
+Senzo flags the unrecognized unit during the Review stage of the upload wizard. You can either add the unit to Settings and re-upload, or let Senzo create it automatically from the upload. See [Upload Errors — UNIT_NOT_FOUND](/troubleshooting/upload-errors#unit-not-found) for details.
+
+---
+
+## Billing and plans
+
+### What happens when the trial ends?
+
+Your account moves to the Hobby plan. All your data and configuration is preserved. Feature access may change depending on the plan. Contact hello@senzohq.com to discuss plan options before your trial ends.
+
+### Can I add more users?
+
+Yes — go to **Settings → Users → Invite User**. See [Inviting Your Team](/getting-started/inviting-your-team) for the full guide.
+
+---
+
+## Still have questions?
+
+Contact us at [hello@senzohq.com](mailto:hello@senzohq.com) — we typically respond within one business day.

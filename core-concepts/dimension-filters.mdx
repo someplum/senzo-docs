@@ -1,12 +1,71 @@
 ---
 title: Dimension Filters
-description: Filtering by facility, unit, sector, and provider type
+description: Filtering workforce data by facility, unit, sector, and provider type
 ---
 
 # Dimension Filters
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Senzo organizes workforce data across four dimensions. Filtering by these dimensions lets you drill from system-wide totals down to the specific unit or role where a problem is occurring.
 
-Full documentation for this section is coming soon.
+## The four dimensions
+
+### Facility
+A physical site or campus within your organization. Examples: Main Campus, North Tower, West Wing, Community Clinic.
+
+Facilities are configured in **Settings → Organization Setup → Facilities**.
+
+### Unit
+A clinical department or functional team within a facility. Examples: Emergency Department, ICU, Cardiology, Operating Room, Medical-Surgical 3 East.
+
+Units are assigned to a facility in Settings. Each unit belongs to one facility and one sector.
+
+### Sector
+A clinical grouping of units. Examples: Nursing, Allied Health, Diagnostics, Pharmacy, Physicians, Emergency Services.
+
+Sectors are assigned at the unit level in Settings. They allow you to roll up data across similar departments — for example, viewing all Nursing units together regardless of which facility they're in.
+
+### Provider Type
+A staff role or category. Examples: Registered Nurse, Licensed Practical Nurse, Health Care Aide, Pharmacist, Medical Doctor.
+
+Provider types are configured in **Settings → Organization Setup → Provider Types**.
+
+## How dimensions interact
+
+The dimensions are hierarchical for facilities and units:
+
+```
+Organization
+└── Facility
+    └── Unit (belongs to a Sector)
+        └── Provider Type
+```
+
+A single unit can have multiple provider types. A single facility can have multiple units across multiple sectors.
+
+## Where filters appear
+
+| Section | Available filters |
+|---|---|
+| Metrics Explorer | Sector, Facility, Unit, Provider Type, Expand By |
+| Report Builder | Facility, Unit, Sector, Provider Type |
+| Data Explorer | Facility, Unit, Provider Type |
+| Pulse Intelligence | Sector, Unit (in output breakdown) |
+| Cost Analytics | Facility, Sector, Provider Type |
+
+## Expand By
+
+The Metrics Explorer has an additional **Expand By** dimension that splits a single metric into separate lines per dimension value. For example, selecting Expand By: Provider Type on the Headcount metric produces one trend line per provider type on the same chart.
+
+## Setting up your dimensions
+
+Before uploading data, configure your dimensions in **Settings → Organization Setup**:
+
+1. Add **Facilities** — your physical sites
+2. Add **Units** — assign each to a facility and sector
+3. Add **Provider Types** — the roles you track
+
+The names you configure here must exactly match the `facility_name`, `unit_name`, and `provider_type_name` values in your uploaded data files.
+
+<Tip>
+  Use consistent naming conventions across your organization. Abbreviations and casing differences (e.g. "ICU" vs "Intensive Care Unit" vs "intensive care unit") will cause unit matching failures during upload.
+</Tip>

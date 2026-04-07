@@ -5,8 +5,45 @@ description: Building longitudinal trend views across any metric and dimension
 
 # Metrics Explorer
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+The Metrics Explorer is Senzo's analytical workspace for longitudinal trend analysis. It lets you select any combination of metrics, apply dimension filters, and visualize trends over any time range.
 
-Full documentation for this section is coming soon.
+## Loading data
+
+The Metrics Explorer does not load data automatically — click **Load Data** to fetch results based on your current filter settings. This prevents unnecessary queries when you're still configuring your view.
+
+## Filters
+
+| Filter | Description |
+|---|---|
+| From / To | Date range — select start and end month/year |
+| Sectors | Filter to one or more clinical sectors |
+| Facilities | Filter to one or more facilities |
+| Units | Filter to one or more units |
+| Provider Types | Filter to one or more provider types |
+| Expand By | Split the chart into separate lines by Facility, Sector, Unit, or Provider Type |
+| View by | Monthly, Quarterly, or Annual period granularity |
+
+## Selecting metrics
+
+The data table below the chart shows all available metrics. Check the box next to any metric to add it to the chart visualization. Each metric is assigned to either the **left axis (L)** or **right axis (R)** — the axis assignment is shown next to the metric name in the chart legend.
+
+Senzo automatically assigns count metrics (headcount, hours) to the left axis and rate metrics (percentages) to the right axis to keep the dual-axis chart readable.
+
+## The visualization
+
+The chart is a dual-axis line chart with:
+- Left Y-axis: count metrics (headcount, FTE, hours)
+- Right Y-axis: rate metrics (percentages)
+- X-axis: time periods
+- Each selected metric rendered as a separate colored line with dot markers
+- A legend below the chart showing metric names and axis assignments
+
+Toggle between line chart and bar chart using the icons in the top right of the chart card.
+
+## Exporting
+
+Click **Export** to download the current data table as a CSV file covering all selected metrics across the filtered time range and dimensions.
+
+## Expand By
+
+The Expand By filter splits a single metric into multiple lines — one per dimension value. For example, Expand By: Facility with Headcount selected produces one line per facility on the chart, allowing direct site comparison.

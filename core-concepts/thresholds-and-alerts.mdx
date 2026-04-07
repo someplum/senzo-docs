@@ -1,12 +1,66 @@
 ---
 title: Thresholds and Alert Rules
-description: How to configure metric thresholds and what triggers an alert
+description: How to configure metric thresholds and what triggers an alert in Senzo
 ---
 
 # Thresholds and Alert Rules
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Thresholds are the boundaries Senzo uses to classify metrics as normal, warning, or critical. Alert Rules fire automatically when a metric crosses a threshold you define.
 
-Full documentation for this section is coming soon.
+## Default thresholds
+
+Senzo ships with Canadian healthcare benchmark defaults. You can override any of these in **Alert Rules → Rules**.
+
+| Metric | Warning threshold | Critical threshold |
+|---|---|---|
+| OT Rate | 10% | 15% |
+| Vacancy Rate | 8% | 20% |
+| Absence Rate | 5% | 8% |
+| Agency Rate | 5% | 10% |
+| OT Cost % of Labor | 20% | 30% |
+| Agency Cost % of Labor | 15% | 25% |
+| Outflow Rate | 3% | 8% |
+
+These defaults are used across the platform — in Pulse Intelligence warnings, the Burnout Risk Index, the Overview Wellbeing Alerts card, and Emerging Risks.
+
+## How thresholds are used
+
+**Pulse Intelligence** uses thresholds to classify findings as warnings vs. informational. A metric exceeding a warning threshold generates a Warning finding. Exceeding the critical threshold generates a higher-severity warning.
+
+**Burnout Risk Index** normalizes component scores against thresholds — a metric at the warning threshold scores 50/100, at the critical threshold scores 100/100.
+
+**Emerging Risks** on the Overview identifies units where multiple metrics are trending toward their warning thresholds simultaneously.
+
+**Alert Rules** fire notifications when a configured threshold is crossed for a specific metric, unit, or facility combination.
+
+## Creating an Alert Rule
+
+Navigate to **Alert Rules → Rules** and click **Add Rule**.
+
+Configure:
+- **Metric** — which metric to monitor (OT Rate, Vacancy Rate, Absence Rate, etc.)
+- **Condition** — greater than, less than, or equal to
+- **Threshold** — the value that triggers the alert
+- **Scope** — all units, a specific facility, or a specific unit
+- **Severity** — High or Medium
+- **Name** — a descriptive name for the rule
+
+Save the rule. Senzo evaluates it against your data on each upload and when Pulse Intelligence runs.
+
+## Alert History
+
+The **Alert History** tab in Alert Rules shows all rules that have fired, with:
+- The metric value that triggered it
+- The threshold it crossed
+- The unit and date
+- Current status (Active or Resolved)
+
+An alert is marked Resolved when the metric returns below the threshold in a subsequent period.
+
+## Configuring thresholds organization-wide
+
+To change the default thresholds used across the platform (not just for a specific alert rule), go to **Alert Rules → Rules** and edit the built-in threshold rules. Changes apply immediately to Pulse Intelligence, the BRI model, and all threshold-dependent displays.
+
+<Note>
+  Threshold changes apply to future Pulse Intelligence runs. Re-run Pulse Intelligence after changing thresholds to see updated findings based on the new values.
+</Note>

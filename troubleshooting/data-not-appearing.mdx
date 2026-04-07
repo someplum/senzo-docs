@@ -5,8 +5,53 @@ description: Why uploaded data may not show in dashboards and how to fix it
 
 # Data Not Appearing
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+If you've completed an upload but data isn't showing in the platform, here's how to diagnose and fix it.
 
-Full documentation for this section is coming soon.
+## Check your upload history first
+
+Go to **Upload Data** and scroll to the Upload History section. Find your recent upload and check its status:
+
+- **Processed** ✅ — the upload completed successfully
+- **Processing** ⏳ — still running, wait a moment and refresh
+- **Failed** ❌ — the upload encountered an error. Click the upload row to see the error details
+
+If the status shows Failed, see [Upload Errors](/troubleshooting/upload-errors) for resolution steps.
+
+## The upload processed but metrics aren't showing
+
+### Check your date range
+
+The Overview shows data for the most recent period in your database. If your uploaded data covers an older period, navigate to Metrics Explorer and check the date range — the data may be there but outside the default view window.
+
+### Check the period type filter
+
+If the Overview is set to Annual and you uploaded monthly data for a period that isn't a full year, the annual view may show incomplete data. Switch to Monthly to verify your data is present.
+
+### Verify unit and provider type matching
+
+If unit names in your uploaded file didn't match the units configured in Settings, those rows were skipped. Check Settings → Organization Setup → Units and compare the names exactly (including casing and spacing) to what's in your data file.
+
+### Check for partial import
+
+In Upload History, some uploads show a row count. If the imported row count is lower than expected, some rows were skipped. Re-upload the file through the AI Analyzer to identify which rows were skipped and why.
+
+## The overview shows old data
+
+If the Overview is showing data from a previous period rather than your most recent upload, the new period may not have been correctly identified as the latest. Check:
+
+1. Does the subtitle on the Overview page show the correct date?
+2. Does the upload history show the new upload as Processed?
+3. Is the Monthly/Annual toggle set to the correct period type?
+
+If all of these look correct and the Overview still shows old data, try a hard refresh (Cmd+Shift+R on Mac) to clear the browser cache.
+
+## Pulse Intelligence shows outdated findings
+
+Pulse Intelligence does not update automatically when new data is uploaded. Click **Re-run Pulse** in the top right of the Pulse Intelligence page to generate a new analysis based on the latest data.
+
+## Still not resolved?
+
+Contact support at hello@senzohq.com with:
+- The date of the upload
+- The date range covered by the file
+- A description of what you expect to see vs what you're seeing

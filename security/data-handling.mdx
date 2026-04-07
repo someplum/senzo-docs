@@ -5,8 +5,44 @@ description: How Senzo stores, processes, and protects your workforce data
 
 # Data Handling
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Infrastructure
 
-Full documentation for this section is coming soon.
+Senzo is built on **Supabase** (PostgreSQL database) hosted on AWS, and deployed via **Vercel**. All infrastructure is SOC 2 compliant at the vendor level.
+
+## Data storage
+
+- All data is stored in a PostgreSQL database hosted in Canada (AWS ca-central-1 region)
+- Each organization's data is logically isolated — Row Level Security (RLS) policies enforce that queries only return data belonging to the authenticated organization
+- No cross-organization data access is possible at the application or database level
+
+## Encryption
+
+- **In transit:** All data is encrypted via TLS 1.2+ between your browser and Senzo's servers
+- **At rest:** Database storage is encrypted using AES-256
+
+## Data you upload
+
+Workforce metrics data uploaded to Senzo:
+- Is stored in Senzo's database under your organization's account
+- Is not shared with any third parties
+- Is not used to train AI models
+- Is retained for the duration of your subscription and deleted upon account closure (on request)
+
+## AI processing
+
+Senzo uses the **Anthropic Claude API** for two features:
+1. **AI Upload Analyzer** — a sample of your file (first 50 rows and column headers) is sent to the Claude API for schema analysis
+2. **Pulse Intelligence** — aggregated metric summaries (not raw data) are sent to the Claude API to generate intelligence briefings
+
+In both cases, only the minimum necessary data is sent. Raw individual-level data is never transmitted to Anthropic. Anthropic's zero data retention policy applies to API calls.
+
+## Access controls
+
+- Authentication is handled by **Supabase Auth** (email/password)
+- Sessions use secure HTTP-only cookies
+- Role-based access control limits what each user can see and do
+- All API routes verify user authentication and organization membership before returning data
+
+## Data deletion
+
+To request deletion of your organization's data, contact hello@senzohq.com. Data deletion is completed within 30 days of request.

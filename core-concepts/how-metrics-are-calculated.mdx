@@ -5,8 +5,98 @@ description: Complete reference for how every metric in Senzo is derived from ra
 
 # How Metrics Are Calculated
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Every metric in Senzo is derived from the raw data uploaded to the platform. This page explains the calculation logic for each metric category so you can verify outputs, explain numbers to stakeholders, and trust the intelligence Senzo surfaces.
 
-Full documentation for this section is coming soon.
+## Source data
+
+All metrics are calculated from the `workforce_metrics` table — the normalized data structure Senzo creates from your uploaded files. Each row represents one combination of:
+
+- **Period** — the month (e.g. February 2026)
+- **Facility** — the physical site
+- **Unit** — the clinical department
+- **Provider Type** — the staff role category
+
+The raw fields available per row are: `headcount`, `positions`, `fte`, `vacant_fte`, `inflow_headcount`, `outflow_headcount`, `worked_hours`, `overtime_hours`, `agency_hours`, `absence_hours`, `scheduled_hours`.
+
+## Vacancy metrics
+
+| Metric | Formula |
+|---|---|
+| FTE Vacancy Rate | `(vacant_fte ÷ positions) × 100` |
+| Vacant FTE | `positions − fte` (or `vacant_fte` if provided directly) |
+| FTE Fill Rate | `(fte ÷ positions) × 100` |
+| Vacancy Count | `positions (headcount) − headcount` |
+
+<Note>
+  If `vacant_fte` is provided directly in your upload, Senzo uses it as-is. If it is not provided, Senzo derives it as `positions − fte`.
+</Note>
+
+## Hours metrics
+
+| Metric | Formula |
+|---|---|
+| OT Rate | `(overtime_hours ÷ worked_hours) × 100` |
+| Agency Rate | `(agency_hours ÷ worked_hours) × 100` |
+| Absence Rate | `(absence_hours ÷ scheduled_hours) × 100` |
+| Schedule Variance | `((worked_hours − scheduled_hours) ÷ scheduled_hours) × 100` |
+| HPPD (Hours Per Patient Day) | `worked_hours ÷ census_days` (requires workload data) |
+
+<Warning>
+  OT Rate uses `worked_hours` as the denominator, not `scheduled_hours`. This reflects overtime as a proportion of actual work performed, not planned capacity. Some organizations calculate OT differently — be aware of this when benchmarking against external sources.
+</Warning>
+
+## Workforce flow metrics
+
+| Metric | Formula |
+|---|---|
+| Inflow Rate | `(inflow_headcount ÷ avg_headcount) × 100` |
+| Outflow Rate | `(outflow_headcount ÷ avg_headcount) × 100` |
+| Net Flow (Headcount) | `inflow_headcount − outflow_headcount` |
+| Net Flow (FTE) | Derived from FTE-equivalent inflow and outflow |
+| Turnover Rate | `(outflow_headcount ÷ avg_headcount) × 100` (annualized) |
+
+`avg_headcount` is the average of the current and prior period headcount.
+
+## Aggregation across dimensions
+
+When Senzo aggregates metrics across units, facilities, or provider types, it applies the following rules:
+
+| Metric type | Aggregation method |
+|---|---|
+| Counts (headcount, positions, FTE, hours) | **Sum** — add all values |
+| Rates (OT rate, vacancy rate, absence rate) | **Weighted average** — recalculated from summed components, not averaged from rates |
+
+<Warning>
+  Senzo **never averages rates directly**. A common error in manual reporting is averaging percentages across units (e.g. averaging 10% and 20% to get 15%). Senzo always recalculates from the underlying counts to produce correct weighted averages.
+</Warning>
+
+**Example:** Two units with OT rates of 10% and 20%:
+- Unit A: 1,000 worked hours, 100 OT hours (10%)
+- Unit B: 500 worked hours, 100 OT hours (20%)
+- **Correct aggregate:** 200 OT ÷ 1,500 worked = **13.3%**
+- **Incorrect (simple average):** (10% + 20%) ÷ 2 = 15%
+
+## Period aggregation
+
+When switching between Monthly, Quarterly, and Annual views:
+
+- **Count metrics** (headcount, FTE) — use the **last period** value within the window (point-in-time, not sum)
+- **Flow metrics** (inflow, outflow, hours) — **summed** across periods
+- **Rate metrics** — **recalculated** from the summed underlying counts
+
+## Derived sector and facility metrics
+
+Sector and facility level metrics are aggregated from unit-level data using the same rules above. Units are mapped to sectors via the organization configuration in Settings.
+
+## Data quality effects
+
+Missing data affects metric availability:
+
+| Missing field | Affected metrics |
+|---|---|
+| `positions` | Vacancy rate, Vacant FTE, FTE Fill Rate |
+| `worked_hours` | OT Rate, Agency Rate, Schedule Variance, HPPD |
+| `scheduled_hours` | Absence Rate, Schedule Variance |
+| `inflow_headcount` / `outflow_headcount` | All workforce flow metrics |
+
+Senzo will display metrics as unavailable rather than show a potentially misleading calculation when required source fields are missing.

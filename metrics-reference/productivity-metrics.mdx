@@ -5,8 +5,121 @@ description: HPPD, worked hours, and scheduled vs actual comparisons
 
 # Productivity Metrics
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Worked Hours
 
-Full documentation for this section is coming soon.
+**Definition:** Total hours actually worked by employed staff in a period, excluding agency hours.
+
+**Source field:** `worked_hours`
+
+**Includes:** Regular hours + overtime hours worked by employed staff
+**Excludes:** Agency and temp staff hours (tracked separately in `agency_hours`)
+
+**Notes:**
+- Worked hours is the denominator for OT Rate and Agency Rate calculations
+- Ensure consistency — if your payroll system includes agency hours in worked hours, exclude them before uploading
+
+**Displayed in:** Pulse Intelligence, Metrics Explorer, Data Explorer
+
+---
+
+## Scheduled Hours
+
+**Definition:** Total hours scheduled for employed staff in a period — the planned capacity.
+
+**Source field:** `scheduled_hours`
+
+**Notes:**
+- Scheduled hours represent the staffing plan, not actual coverage
+- The gap between scheduled and worked hours reflects unplanned variance (absences, overtime, early departures)
+- Required for Absence Rate calculation
+
+**Displayed in:** Pulse Intelligence, Metrics Explorer
+
+---
+
+## Schedule Variance
+
+**Definition:** The difference between actual worked hours and scheduled hours as a percentage.
+
+**Formula:**
+```
+Schedule Variance = ((worked_hours − scheduled_hours) ÷ scheduled_hours) × 100
+```
+
+**Interpretation:**
+- Positive variance: Staff worked more than scheduled (overtime-driven)
+- Negative variance: Staff worked less than scheduled (absence-driven)
+- Large variance in either direction indicates scheduling instability
+
+**Displayed in:** Metrics Explorer
+
+---
+
+## Agency Hours
+
+**Definition:** Hours worked by temporary or agency staff in a period.
+
+**Source field:** `agency_hours`
+
+**Notes:**
+- Track separately from employed staff hours
+- Agency hours are included in total coverage calculations but excluded from employed staff metrics
+- High agency hours alongside high vacancy rates confirms the vacancy is being covered by temporary staff
+
+**Displayed in:** Cost Analytics, Pulse Intelligence, Metrics Explorer
+
+---
+
+## HPPD — Hours Per Patient Day
+
+**Definition:** Total worked hours (employed + agency) per patient day — a standard clinical productivity measure in acute care.
+
+**Formula:**
+```
+HPPD = (worked_hours + agency_hours) ÷ census_days
+```
+
+**Requires:** Workload data (patient census) uploaded separately to Senzo.
+
+**Benchmarks:** HPPD targets vary significantly by unit type. ICU: 12–18 HPPD. Medical-Surgical: 6–9 HPPD. Emergency: 4–7 HPPD.
+
+**Notes:**
+- HPPD is only meaningful when benchmarked against appropriate unit-type norms
+- Senzo displays HPPD in the Metrics Explorer when workload data is present
+- HPPD below target indicates potential understaffing; above target may indicate overstaffing or inefficiency
+
+**Displayed in:** Metrics Explorer (requires workload data)
+
+---
+
+## Nurse-to-Patient Ratio
+
+**Definition:** The ratio of nursing staff to patients at a given point in time.
+
+**Formula:**
+```
+Nurse-to-Patient Ratio = census ÷ (nursing_headcount × shift_fraction)
+```
+
+**Notes:**
+- Point-in-time calculation — requires census and shift data
+- Senzo approximates from monthly averages when real-time data is not available
+- Regulatory minimums vary by province and unit type
+
+**Displayed in:** Metrics Explorer (requires workload data)
+
+---
+
+## Actual vs Budgeted FTE
+
+**Definition:** The difference between budgeted FTE and filled FTE — the gap between planned and actual capacity.
+
+**Formula:**
+```
+FTE Variance = filled_fte − budgeted_fte
+```
+
+Negative variance: Operating below budget (vacancy or budget hold)
+Positive variance: Operating above budget (overtime-driven FTE equivalent)
+
+**Displayed in:** Metrics Explorer

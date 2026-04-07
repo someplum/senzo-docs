@@ -5,8 +5,125 @@ description: Inflow, outflow, net flow, and turnover rate definitions
 
 # Workforce Flow Metrics
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Workforce flow metrics track the movement of staff into and out of your organization. They are among the most important leading indicators Senzo surfaces — flow patterns predict vacancy rate changes weeks before they become visible in point-in-time snapshots.
 
-Full documentation for this section is coming soon.
+## Inflow Headcount
+
+**Definition:** The number of employees who joined a unit/role during the period — new hires, internal transfers in, and returns from extended leave.
+
+**Source field:** `inflow_headcount`
+
+**Includes:**
+- New external hires
+- Internal transfers arriving from another unit or facility
+- Returns from long-term leave (if returning to active status)
+
+**Displayed in:** Pulse Intelligence, Metrics Explorer, Data Explorer
+
+---
+
+## Outflow Headcount
+
+**Definition:** The number of employees who left a unit/role during the period — voluntary resignations, retirements, involuntary terminations, internal transfers out.
+
+**Source field:** `outflow_headcount`
+
+**Includes:**
+- Voluntary resignations
+- Retirements
+- Involuntary terminations
+- Internal transfers departing to another unit or facility
+- Departures to long-term leave (if leaving active headcount)
+
+**Displayed in:** Pulse Intelligence, Metrics Explorer, Workforce Stress Indicators
+
+---
+
+## Net Flow (Headcount)
+
+**Definition:** The net change in headcount due to movement during the period.
+
+**Formula:**
+```
+Net Flow (HC) = inflow_headcount − outflow_headcount
+```
+
+**Interpretation:**
+- Positive: Workforce growing — more arrivals than departures
+- Zero: Stable
+- Negative: Workforce shrinking — more departures than arrivals
+
+**Why this matters:** Net flow turns negative before vacancy rate rises. Tracking net flow continuously gives you 4–8 weeks of lead time to respond before a vacancy problem becomes critical.
+
+**Displayed in:** Pulse Intelligence, Metrics Explorer
+
+---
+
+## Inflow Rate
+
+**Definition:** Inflow as a percentage of average headcount — the rate at which new staff are joining.
+
+**Formula:**
+```
+Inflow Rate = (inflow_headcount ÷ avg_headcount) × 100
+```
+
+`avg_headcount` = average of current and prior period headcount.
+
+---
+
+## Outflow Rate
+
+**Definition:** Outflow as a percentage of average headcount — the rate at which staff are leaving.
+
+**Formula:**
+```
+Outflow Rate = (outflow_headcount ÷ avg_headcount) × 100
+```
+
+**Benchmarks:**
+- Below 1.5%/month (18%/year): Low — stable workforce
+- 1.5–2.5%/month: Moderate — typical for healthcare
+- Above 2.5%/month (30%+/year): Elevated — chronic churn risk
+
+**Displayed in:** Pulse Intelligence, Workforce Stress Indicators
+
+---
+
+## Annualized Turnover Rate
+
+**Definition:** Outflow rate expressed as an annual percentage for comparison to industry benchmarks.
+
+**Formula:**
+```
+Annualized Turnover Rate = (total_outflow_12_months ÷ avg_headcount_12_months) × 100
+```
+
+**Typical benchmarks in Canadian healthcare:**
+- Nursing: 15–25% annually
+- Allied Health: 12–20% annually
+- Physicians: 3–8% annually
+- Health Care Aides: 25–40% annually
+
+---
+
+## Chronic Churn
+
+Chronic churn occurs when outflow rate exceeds the warning threshold for **3 or more consecutive months** in the same unit/role. It is distinct from normal turnover because the same roles are being repeatedly vacated and refilled without resolution of the underlying cause.
+
+Senzo's Workforce Stress Indicators section flags units experiencing chronic churn with the number of consecutive months and affected provider types.
+
+**Chronic churn is a systems problem, not a recruitment problem.** Repeatedly filling the same roles without addressing scheduling instability, workload imbalance, or management issues will not resolve the pattern.
+
+---
+
+## Transfer In FTE / Transfer Out FTE
+
+**Definition:** The FTE equivalent of internal transfers — staff moving between units within the organization rather than joining from or leaving to external sources.
+
+**Notes:**
+- Internal transfers are captured in both `inflow_headcount` and `outflow_headcount` at the unit level
+- At the organization level, internal transfers net to zero — they don't affect total organizational headcount
+- Senzo displays transfer FTE separately in Pulse Intelligence to distinguish internal mobility from true external turnover
+
+**Displayed in:** Pulse Intelligence Workforce Snapshot
