@@ -5,8 +5,82 @@ description: Creating and managing threshold-based monitoring rules
 
 # Alert Rules
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Alert Rules let you define the threshold conditions that trigger warnings across the Senzo platform. When a metric crosses a configured threshold, it surfaces in Pulse Intelligence, the Overview Wellbeing Alerts card, and the Alert History tab.
 
-Full documentation for this section is coming soon.
+## Rules tab
+
+The Rules tab shows all configured alert rules for your organization.
+
+### Default rules
+
+Senzo pre-configures a set of default rules based on Canadian healthcare benchmarks:
+
+| Rule | Warning | Critical |
+|---|---|---|
+| Overtime Rate | 10% | 15% |
+| Vacancy Rate | 8% | 20% |
+| Absence Rate | 5% | 8% |
+| Agency Rate | 5% | 10% |
+| OT Cost % of Labor | 20% | 30% |
+| Agency Cost % of Labor | 15% | 25% |
+| Outflow Rate | 3% | 8% |
+
+These defaults power the threshold evaluations across the entire platform — Pulse Intelligence warnings, the Burnout Risk Index, Emerging Risks, and Top Actions all reference these values.
+
+### Creating a custom rule
+
+Click **Add Rule** and configure:
+
+- **Name** — a descriptive label for the rule
+- **Metric** — which metric to monitor
+- **Condition** — greater than, less than, or equal to
+- **Threshold** — the value that triggers the alert
+- **Scope** — All units, a specific facility, or a specific unit
+- **Severity** — High (red) or Medium (amber)
+
+Click **Save**. The rule takes effect on the next Pulse Intelligence run.
+
+### Editing and deleting rules
+
+Click the edit icon next to any rule to modify it. Click the delete icon to remove it.
+
+<Warning>
+  Deleting a default rule removes that threshold from platform-wide evaluations — Pulse Intelligence will no longer flag that metric. Edit rather than delete default rules where possible.
+</Warning>
+
+---
+
+## Alert History tab
+
+The Alert History tab shows all rules that have fired, with:
+
+| Column | Description |
+|---|---|
+| Metric | The metric that triggered the alert |
+| Unit | The unit where it was detected |
+| Triggered Value | The metric value at the time of firing |
+| Threshold | The threshold that was crossed |
+| Severity | High or Medium |
+| Date | When the alert fired |
+| Status | Active or Resolved |
+
+**Active:** The metric is still above threshold in the most recent period.
+**Resolved:** The metric has returned below threshold in a subsequent period.
+
+### Empty state
+
+If no rules have fired, Alert History shows: "No alerts have fired in the current period." This is a good sign — it means all configured thresholds are currently being met across your organization.
+
+---
+
+## How alerts integrate with the platform
+
+Rules configured in Alert Rules flow through to:
+
+- **Pulse Intelligence** — threshold breaches generate Warning findings
+- **Overview — Wellbeing Alerts** — units with multiple threshold breaches generate wellbeing risk scores
+- **Overview — Emerging Risks** — units trending toward thresholds
+- **Overview — Top Actions** — prioritized recommended actions based on threshold severity
+- **Burnout Risk Index** — component scores are normalized against thresholds
+
+Changing a threshold applies immediately to the above displays and takes effect in Pulse Intelligence on the next run.

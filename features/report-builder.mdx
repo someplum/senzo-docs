@@ -5,8 +5,91 @@ description: Composing and exporting custom workforce reports
 
 # Report Builder
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+The Report Builder lets you compose custom workforce reports from any combination of metrics, date ranges, and dimension filters — then export them to PDF or CSV.
 
-Full documentation for this section is coming soon.
+## Report Configuration panel
+
+The configuration panel at the top of the page controls what appears in the report canvas below.
+
+### Metric picker
+
+Select any combination of metrics to include in the report. Available metrics:
+
+**Rate metrics:** OT Rate, Vacancy Rate, Absence Rate, Inflow FTE Rate, Outflow FTE Rate, Agency Rate
+
+**Count metrics:** Headcount, Total Positions, FTE Count, Vacancy Count, OT Hours, Agency Hours, Worked Hours, Scheduled Hours, Absence Hours
+
+**Flow metrics:** Inflow, Outflow
+
+**Cost metrics:** Total Labor Cost, Agency Spend, HPPD
+
+Metrics are plotted on a dual-axis chart — rate metrics on the right axis, count metrics on the left axis. The axis assignment (L or R) is shown next to each selected metric in the config panel.
+
+### Date Range
+
+Select a preset or set a custom range:
+
+| Preset | Description |
+|---|---|
+| Current Month | The most recent month in your data |
+| Last Quarter | The previous calendar quarter |
+| Last 6 Months | Rolling 6-month window |
+| YTD | January 1 to current month |
+| Last FY | Previous full fiscal year |
+| All Time | All data in the system |
+
+For custom ranges, use the From and To date pickers.
+
+### Granularity
+
+Select **Monthly**, **Quarterly**, or **Annual** period aggregation. This applies to how data points are grouped in the trend chart and summary table.
+
+### Filters
+
+**Facility**, **Unit**, **Sector**, and **Provider Type** dropdowns let you scope the report to specific parts of your organization. Multi-select is supported.
+
+### Clear all
+
+Resets all configuration to defaults.
+
+---
+
+## Report Canvas
+
+The canvas below the configuration panel updates in real time as you change settings.
+
+### KPI tiles (up to 4)
+
+The top of the canvas shows KPI tiles for the selected metrics — the latest period value with change vs prior period.
+
+### Trend chart
+
+A line chart showing all selected metrics trended over the selected date range. Dual-axis layout keeps rate and count metrics readable together.
+
+The chart legend shows metric names and color codes.
+
+### Summary table
+
+A tabular view of all selected metrics across all periods in the date range. One column per period, one row per metric. Useful for board presentations that require specific numbers by month.
+
+---
+
+## Exporting
+
+### Export CSV
+
+Downloads a CSV file of the summary table data — one column per period, one row per metric, with organization and filter metadata in the header. Filename: `senzo-report-[org]-[date].csv`.
+
+Export CSV is available whenever at least one metric is selected and data has loaded.
+
+### Export PDF
+
+Opens the browser print dialog with a print-optimized layout — white background, clean typography, Senzo branding. The configuration panel and toolbar are hidden in the print view. Use your browser's "Save as PDF" option to generate a PDF file.
+
+---
+
+## Tips for effective reports
+
+- **For board packages:** Select 3–5 key metrics, use Annual granularity, include a full fiscal year date range, export to PDF
+- **For operational reviews:** Select operational metrics (OT Rate, Vacancy Rate, Absence Rate), use Monthly granularity, filter to specific facilities or sectors
+- **For finance submissions:** Select cost metrics (Total Labor Cost, OT Cost, Agency Cost), use the Turnover Cost tab in Cost Analytics for full cost intelligence

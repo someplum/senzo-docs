@@ -5,8 +5,39 @@ description: Senzo's position on HIPAA and healthcare data compliance
 
 # HIPAA
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Does Senzo handle PHI?
 
-Full documentation for this section is coming soon.
+HIPAA applies when a platform handles **Protected Health Information (PHI)** — individually identifiable information related to a person's health, healthcare, or payment for healthcare.
+
+Senzo is a **workforce intelligence platform**, not a patient care platform. The data Senzo processes is workforce metrics data:
+
+- Headcount and FTE counts by unit and role
+- Overtime hours, absence hours, worked hours
+- Vacancy rates, inflow and outflow counts
+- Labor cost estimates
+
+This is **aggregate operational data about staffing** — not information about individual patients or individual employees' health conditions.
+
+**In its standard use, Senzo does not process PHI.**
+
+## When PHI exposure could occur
+
+PHI could potentially enter Senzo if an organization uploads data that includes:
+
+- Individual employee leave records linked to specific medical conditions
+- Disability claim data with diagnostic codes
+- Any data that identifies a specific individual's health status
+
+Senzo's data model is designed around aggregate period-level metrics, not individual employee records. If your organization's data exports contain PHI, filter it out before uploading to Senzo.
+
+## Business Associate Agreement
+
+If your organization's legal or compliance team requires a Business Associate Agreement (BAA) before using Senzo, contact hello@senzohq.com. We will assess whether a BAA is appropriate given the nature of data being processed.
+
+## Infrastructure compliance
+
+Senzo's infrastructure vendors — Supabase (AWS) and Vercel — offer HIPAA-eligible configurations and BAA agreements at their enterprise plan tiers. These are in place for Senzo's production environment.
+
+## Questions
+
+Contact hello@senzohq.com with any compliance questions. We are not able to provide legal advice, but we can provide technical documentation to support your organization's compliance review.

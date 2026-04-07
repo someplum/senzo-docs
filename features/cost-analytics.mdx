@@ -5,8 +5,114 @@ description: Labor cost analysis and turnover cost intelligence
 
 # Cost Analytics
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Cost Analytics is Senzo's financial intelligence layer — translating workforce metrics into the dollar figures that matter to CFOs, finance directors, and board-level governance. It has two tabs: **Labor Cost** and **Turnover Cost**.
 
-Full documentation for this section is coming soon.
+## Labor Cost tab
+
+### KPI tiles
+
+Four headline tiles show the current period's cost picture:
+
+| Tile | Metric |
+|---|---|
+| Total Labor Cost | Estimated total spend (regular + OT + agency) |
+| Cost per FTE | Average labor cost per filled FTE |
+| Overtime Cost | OT spend with % of total labor cost |
+| Agency Cost | Agency spend with % of total labor cost |
+
+The **Monthly / Annual toggle** switches between monthly estimates and annualized projections.
+
+### Insight line
+
+Below the KPI tiles, a dynamic insight line shows:
+> "OT and agency spend this month ($X) is equivalent to approximately Y FTE at average cost."
+
+This answers a governance-level question: could we fund additional FTE with the money we're spending on premium labor?
+
+### Cost Breakdown bar
+
+A proportional bar showing the split between Regular, Overtime, and Agency spend — color-coded in teal, amber, and indigo.
+
+### Cost Trends — 12 Month History
+
+A line chart showing Total Labor Cost, Overtime Cost, and Agency Cost trended over 12 months. Useful for identifying seasonal patterns and cost trajectories.
+
+### Labor Cost by Facility
+
+A horizontal bar chart showing total labor cost by facility. Hidden for single-facility organizations.
+
+### Labor Cost by Sector
+
+A horizontal bar chart showing Total Labor Cost, Overtime Cost, and Agency Cost broken down by clinical sector.
+
+### Labor Cost by Provider Type
+
+A sortable table showing for each provider type:
+- Total Labor Cost
+- Cost per FTE
+- Overtime Cost and OT %
+- Agency Cost and Agency %
+
+Rows where OT % or Agency % exceed thresholds are highlighted in amber or red.
+
+### Premium Labor Summary
+
+A summary card showing:
+- **Total Premium Labor Spend** — OT + Agency combined
+- **Premium Labor as % of Total** — the proportion of labor cost going to premium rates
+- **FTE Equivalent** — how many FTE the premium spend could fund
+- **Saving from reducing to threshold** — estimated saving if premium labor were brought to threshold levels
+
+---
+
+## Turnover Cost tab
+
+The Turnover Cost tab models the financial cost of employee turnover by role category using a five-component formula based on Canadian healthcare benchmarks.
+
+See [Turnover Cost Model](/core-concepts/turnover-cost-model) for the full methodology.
+
+### Role selector and scenario toggle
+
+Select a **role category** from the dropdown to see per-event cost estimates for that role. Available roles map to Senzo's provider types.
+
+The **Conservative / Moderate / High** scenario toggle applies different parameter assumptions — vacancy days, backfill premium, search fees, and productivity ramp. See the [Turnover Cost Model](/core-concepts/turnover-cost-model) for what each scenario assumes.
+
+Enter a **custom annual compensation** figure to override the Canadian benchmark for your organization's actual compensation levels.
+
+### Per-event cost breakdown
+
+Five cost component cards show the estimated cost of a single departure:
+
+| Component | What it covers |
+|---|---|
+| Separation Cost | HR processing, exit admin, any severance |
+| Vacancy Coverage Cost | Agency or OT backfill during the unfilled period |
+| Acquisition Cost | Recruitment fees, advertising, interview time |
+| Onboarding Cost | Orientation period and credentialing lag |
+| Productivity Ramp Cost | Foregone clinical value during ramp-up ⚠️ |
+
+<Warning>
+  Productivity Ramp Cost is an **opportunity cost** — it represents foregone clinical value, not a direct cash expenditure. It is flagged with an amber badge and separated from the cash components in the total.
+</Warning>
+
+### Annualized cost view
+
+Pulls observed outflow counts from your organization's `workforce_metrics` data for the past 12 months and multiplies by per-event cost to produce an annualized cost estimate.
+
+Table: Role | Departures (12mo) | Cost per Event | Annualized Cost
+
+A bar chart shows the cost distribution by role.
+
+### Cost of Inaction and Break-Even
+
+Three stat cards:
+
+- **3-Year Cost of Inaction** — annualized cost × 3 (labeled as illustrative)
+- **10% Retention Improvement Saves** — annual saving from reducing departures by 10%
+- **Retention Investment Break-Even** — any retention program below this cost that achieves 10% fewer departures is financially justified
+
+### Benchmark disclosure
+
+A banner at the top of the tab notes that estimates use Canadian benchmark parameters and can be refined by entering custom compensation figures.
+
+A collapsible **"How this is calculated"** panel at the bottom provides full methodology disclosure for governance presentations.

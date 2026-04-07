@@ -5,8 +5,83 @@ description: Validation rules, quality checks, and how to ensure clean data
 
 # Data Quality
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Senzo applies a series of validation checks before writing any data to the database. Understanding these checks helps you prepare clean files and troubleshoot issues quickly.
 
-Full documentation for this section is coming soon.
+## Validation layers
+
+Data goes through three validation layers during upload:
+
+1. **Structural validation** — file can be parsed, headers detected, encoding correct
+2. **Field validation** — required fields present, values in expected formats
+3. **Business validation** — values make operational sense, no conflicts with existing data
+
+## Required field checks
+
+| Field | Check |
+|---|---|
+| `date` | Present, parseable as a date, not null |
+| `unit_name` | Present, not empty |
+| `provider_type_name` | Present, not empty |
+| `headcount` | Present, non-negative integer |
+
+Rows failing required field checks are rejected. The upload cannot complete if required fields are missing.
+
+## Format checks
+
+| Field | Check |
+|---|---|
+| All numeric fields | Non-negative values (headcount, FTE, hours cannot be negative) |
+| `fte` | Should not exceed `positions` by more than 10% |
+| `vacant_fte` | Should not exceed `positions` |
+| `overtime_hours` | Should not exceed `worked_hours` |
+| `absence_hours` | Should not exceed `scheduled_hours` |
+
+Fields failing format checks generate **warnings** in the Review stage but do not block the upload. Review and confirm before proceeding.
+
+## Matching checks
+
+| Field | Check |
+|---|---|
+| `unit_name` | Must match a unit configured in Settings (case-sensitive) |
+| `provider_type_name` | Must match a provider type configured in Settings (case-sensitive) |
+| `facility_name` | If present, must match a facility configured in Settings |
+
+Unrecognized names are flagged for resolution — you can add them to Settings or map them to an existing name.
+
+## Duplicate detection
+
+Senzo detects duplicate rows — multiple rows with the same date, unit, and provider type combination. Duplicates are flagged in the Review stage. You must deduplicate before proceeding.
+
+## Overlap detection
+
+When uploading data for periods that already exist in the system, Senzo detects the overlap and presents options: Update, Skip, or Cancel. See [Upload History](/data-ingestion/upload-history) for details.
+
+## Best practices for clean data
+
+**Before exporting from your source system:**
+- Confirm unit and provider type names match your Senzo Settings exactly
+- Remove any summary, total, or blank rows
+- Ensure all date fields are consistently formatted
+- Exclude agency staff from headcount — track their hours separately in `agency_hours`
+
+**Before uploading:**
+- Open the file and do a quick visual scan for obvious issues
+- Check the date range looks correct
+- Verify row count is approximately what you expect
+
+**After uploading:**
+- Check the imported row count in the Review stage matches your expectation
+- Navigate to Data Explorer after upload to verify data appears correctly
+- Run Pulse Intelligence to confirm the new data generates expected insights
+
+## Data quality and metric reliability
+
+Metrics are only as reliable as the underlying data. Common data quality issues and their effects:
+
+| Issue | Affected metrics |
+|---|---|
+| Positions not maintained | Vacancy rate unreliable |
+| Agency hours included in worked hours | OT rate overstated |
+| Scheduled hours missing | Absence rate unavailable |
+| Inflow/outflow not tracked | All workforce flow metrics unavailable |
+| Headcount includes agency staff | Vacancy rate understated |

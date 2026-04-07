@@ -5,8 +5,56 @@ description: Browsing and filtering raw workforce metrics data
 
 # Data Explorer
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+The Data Explorer provides direct access to the raw workforce metrics stored in Senzo. It is the source-of-truth view — what you see here is exactly what the platform uses to calculate all metrics and generate all intelligence.
 
-Full documentation for this section is coming soon.
+## Summary cards
+
+At the top of the page, three summary cards show:
+- **Units** — total configured units in your organization
+- **Provider Types** — total configured provider types
+- **Workload Records** — number of workload data records (if workload data has been uploaded)
+
+## Tabs
+
+### Workforce Metrics
+
+The primary tab. Shows all uploaded workforce metrics data in a filterable table.
+
+**Summary stats above the table:**
+- Total Records — row count after filters applied
+- Total Headcount — sum of headcount across all filtered rows
+- Total Worked Hours — sum of worked hours
+- OT Rate — weighted average across all filtered rows
+
+**Filters:**
+- Date range (From / To month and year)
+- Facility
+- Unit
+- Provider Type
+
+**Columns:**
+Date | Unit | Type (Provider Type) | HC (Headcount) | POS (Positions) | FTE | Vac (Vacancy Count) | Vac% | In (Inflow) | Out (Outflow) | Wkd (Worked Hours) | OT (Overtime Hours) | OT% | Abs (Absence Hours) | Abs% | Sch (Scheduled Hours)
+
+Values highlighted in teal indicate metrics at warning threshold. Values highlighted in red indicate critical threshold breaches.
+
+**Edit mode:** Admins can click **Edit** to make corrections to individual data rows. Use this to fix data entry errors without re-uploading a full file.
+
+### Units
+
+A table of all configured units showing: unit name, facility, sector, and any linked data counts.
+
+### Provider Types
+
+A table of all configured provider types.
+
+### Workload
+
+Workload data (patient census, procedure volumes) if uploaded separately.
+
+## Refreshing data
+
+Click **Refresh** to reload the table with the latest data. Use this after uploading new data if the table doesn't update automatically.
+
+## Exporting
+
+The Data Explorer does not have a dedicated export button — use the **Report Builder** for formatted exports or the **Metrics Explorer Export** for CSV downloads of metric time series.

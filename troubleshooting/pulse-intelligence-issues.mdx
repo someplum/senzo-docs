@@ -5,8 +5,67 @@ description: Common problems with AI analysis and how to resolve them
 
 # Pulse Intelligence Issues
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Pulse Intelligence is not showing any findings
 
-Full documentation for this section is coming soon.
+**Possible causes:**
+
+1. **No data uploaded yet** — Pulse Intelligence requires workforce data to analyze. Upload data first via the Upload Data page.
+
+2. **All metrics are below threshold** — If your organization's metrics are all within normal ranges, Pulse Intelligence will show a "Low Risk" status with no warnings. This is the correct behavior — it means your workforce is performing well against the configured thresholds.
+
+3. **Thresholds are set too high** — If thresholds are set significantly above your organization's actual metric levels, nothing will trigger. Review your thresholds in Alert Rules.
+
+4. **Data covers only one period** — Some Pulse Intelligence findings (trend analysis, duration flags) require multiple periods of data. Upload at least 3 months of data for full finding coverage.
+
+---
+
+## Pulse Intelligence findings don't match what I expect
+
+**The numbers look different from our internal reports:**
+
+This is almost always a calculation methodology difference. Check [How Metrics Are Calculated](/core-concepts/how-metrics-are-calculated) to verify Senzo's formulas match your internal definitions. Common differences:
+
+- OT Rate denominator (worked hours vs scheduled hours)
+- Vacancy Rate (FTE-based vs headcount-based)
+- Absence Rate (unplanned only vs all absence)
+
+**A unit I know is struggling isn't flagged:**
+
+Either the unit's metrics are below the configured thresholds, or the data for that unit is incomplete. Check the unit's values in Data Explorer to see what Senzo has. If key fields like `worked_hours` or `scheduled_hours` are missing, Senzo can't calculate the relevant rates.
+
+---
+
+## Pulse Intelligence is showing outdated data
+
+Pulse Intelligence does not update automatically when new data is uploaded. Click **Re-run Pulse** in the top right of the Pulse Intelligence page to generate a new analysis based on the latest data.
+
+---
+
+## The Re-run Pulse button is disabled
+
+The button may be temporarily disabled if a run is already in progress. Wait 30 seconds and try again. If it remains disabled, contact support.
+
+---
+
+## Pulse Intelligence ran but the page is blank
+
+Try a hard refresh: **Cmd+Shift+R** on Mac or **Ctrl+Shift+R** on Windows. If the page remains blank after refreshing, the most recent run may have encountered an error. Contact hello@senzohq.com with the date and time of the failed run.
+
+---
+
+## Export is generating an incomplete PDF
+
+The PDF export uses your browser's print function. If sections are missing:
+
+1. Scroll to the bottom of the Pulse Intelligence page before exporting to ensure all sections are fully loaded
+2. In the print dialog, ensure "Background graphics" is enabled
+3. Set paper size to A4 or Letter depending on your preference
+
+---
+
+## Still having issues?
+
+Contact hello@senzohq.com with:
+- A description of what you expected vs what you saw
+- The date and time of the Pulse Intelligence run
+- Which period's data was being analyzed

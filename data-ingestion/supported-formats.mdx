@@ -5,8 +5,66 @@ description: CSV and Excel formats accepted by Senzo
 
 # Supported File Formats
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Senzo accepts three file formats for workforce data uploads.
 
-Full documentation for this section is coming soon.
+## CSV (.csv)
+
+Comma-separated values. The preferred format for most uploads.
+
+**Requirements:**
+- UTF-8 encoding (standard for most exports)
+- Comma as delimiter (not semicolon or tab)
+- Column headers in row 1
+- No merged cells
+
+**Typical sources:** HRIS exports, scheduling system exports, manual spreadsheets saved as CSV.
+
+## Excel (.xlsx)
+
+Modern Excel workbook format.
+
+**Requirements:**
+- Data on the first sheet (Sheet1)
+- Column headers in row 1
+- No merged cells
+- No charts or pivot tables embedded in the data sheet
+
+**Note:** Senzo reads only the first worksheet. If your data is on a different sheet, move it to Sheet1 before uploading.
+
+## Excel Legacy (.xls)
+
+Older Excel format supported for compatibility. Converts to `.xlsx` internally during processing.
+
+Same requirements as `.xlsx`.
+
+---
+
+## File size limit
+
+Maximum file size: **50MB**. Files larger than this should be split by date range:
+- Upload Jan–Jun as one file
+- Upload Jul–Dec as a second file
+
+Both files can cover the same units and provider types — Senzo merges them correctly.
+
+---
+
+## What Senzo does not support
+
+- **PDF exports** — not supported, convert to CSV first
+- **Multi-sheet Excel files** — only Sheet1 is read
+- **Zipped files** — upload the raw CSV or Excel, not a zip archive
+- **Google Sheets direct link** — export to CSV or Excel first
+
+---
+
+## Tips for clean exports
+
+Most HRIS and scheduling systems let you export to CSV or Excel. When exporting:
+
+1. Export at the **monthly period level** — one row per month per unit/provider type
+2. Include as many fields as possible — more fields enable more metrics
+3. Avoid including summary or total rows — Senzo detects and removes them but it's better practice to exclude them
+4. Ensure date fields are formatted consistently
+
+If your system exports in a format Senzo doesn't immediately recognize, the AI analyzer will detect the structure and propose a mapping automatically.

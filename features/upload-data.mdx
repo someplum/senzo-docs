@@ -5,8 +5,86 @@ description: Complete guide to the 5-stage upload wizard
 
 # Upload Data
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+The Upload Data page is where you bring workforce data into Senzo. It features a 5-stage wizard that guides you from file selection through AI-powered schema detection to final import.
 
-Full documentation for this section is coming soon.
+## Upload History
+
+Below the wizard, the Upload History table shows all past uploads for your organization:
+
+| Column | Description |
+|---|---|
+| File | Original filename |
+| Data Type | Workforce Metrics or Workload |
+| Date Range | The period span covered by the data |
+| Uploaded | Timestamp of the upload |
+| Status | Processed ✅ / Processing ⏳ / Failed ❌ |
+
+## The 5-stage wizard
+
+Click **Start Upload** to begin.
+
+### Stage 1 — Setup Check
+
+Verifies your organization is configured before accepting data. Checks for:
+
+- **Facilities** — at least one facility configured
+- **Units** — at least one unit configured
+- **Provider Types** — at least one provider type configured
+
+If any show zero, go to **Settings → Organization Setup** and configure them first. Click **Start Upload** when all three show green.
+
+### Stage 2 — Select File
+
+Drag and drop or browse to select your file. Supported formats:
+- `.csv` — comma-separated values
+- `.xlsx` — Excel workbook
+- `.xls` — legacy Excel
+
+Maximum file size: 50MB.
+
+### Stage 3 — AI Analysis
+
+The AI analyzer examines your file and proposes a column mapping. See [AI-Powered Upload](/data-ingestion/ai-powered-upload) for full details on how this works.
+
+Key actions on this screen:
+- Review the mapping table — check confidence scores
+- Override any incorrect mappings using the dropdown
+- Address any required field warnings (red warning list)
+- Review structural issue banners (amber) — these describe automatic normalizations applied
+
+Click **Confirm Mapping and Continue** when satisfied. Click **Skip AI Analysis — use standard template** if your file already matches the standard format.
+
+### Stage 4 — Review
+
+A preview of the data as it will be imported:
+- Row count
+- Date range detected
+- Units recognized
+- Provider types recognized
+- Any validation warnings
+
+If anything looks wrong, click **Back** to adjust the mapping.
+
+If data already exists for the periods in your file, Senzo will ask how to handle the overlap:
+- **Update** — overwrite existing records
+- **Skip** — keep existing, skip overlapping rows
+- **Cancel** — abort the upload
+
+### Stage 5 — Confirm & Import
+
+Click **Confirm & Import** to complete the upload. Senzo processes all rows, writes to the database, and shows a success summary:
+
+- Rows imported
+- Date range processed
+- Any rows skipped and why
+
+After a successful import, navigate to **Overview** to see your updated dashboard, or click **Re-run Pulse** in Pulse Intelligence to generate a new analysis.
+
+## Troubleshooting failed uploads
+
+See [Upload Errors](/troubleshooting/upload-errors) for the complete error reference.
+
+Most common causes:
+- Unit names in the file don't match Settings exactly
+- Required fields missing or empty
+- Date format not recognized by the AI analyzer

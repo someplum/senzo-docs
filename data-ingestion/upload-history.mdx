@@ -5,8 +5,42 @@ description: Viewing past uploads, checking status, and re-uploading
 
 # Upload History
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+The Upload History table on the Upload Data page shows all past uploads for your organization.
 
-Full documentation for this section is coming soon.
+## Reading the table
+
+| Column | Description |
+|---|---|
+| File | The original filename of the uploaded file |
+| Data Type | Workforce Metrics or Workload data |
+| Date Range | The period span covered by the data in this upload |
+| Uploaded | The date and time the upload was submitted |
+| Status | Current processing status |
+
+## Status values
+
+| Status | Meaning |
+|---|---|
+| ✅ Processed | The upload completed successfully. Data is in the platform. |
+| ⏳ Processing | The upload is still being processed. Wait a moment and refresh. |
+| ❌ Failed | The upload encountered an error. Click the row for details. |
+
+## What to do if an upload failed
+
+Click the failed upload row to see the error details. Common errors and resolutions are documented in [Upload Errors](/troubleshooting/upload-errors).
+
+After fixing the issue, re-upload the corrected file through the standard upload wizard. The previous failed upload will remain in history with a Failed status — this is expected.
+
+## Re-uploading data for the same period
+
+If you need to correct data for a period you've already uploaded, upload the corrected file normally. In the Review stage, Senzo will detect the overlap and ask how to handle it:
+
+- **Update** — overwrite existing records with the new file's values
+- **Skip** — keep existing records, skip any rows that would overwrite them
+- **Cancel** — abort the upload
+
+Choose **Update** when uploading a corrected version of previously uploaded data.
+
+## Upload history retention
+
+Upload history is retained indefinitely. You can always see when data was uploaded, who uploaded it, and what periods it covered.

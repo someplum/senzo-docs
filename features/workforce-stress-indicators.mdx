@@ -5,8 +5,86 @@ description: Reading the BRI gauge, unit heatmap, and chronic churn detection
 
 # Workforce Stress Indicators
 
+The Workforce Stress Indicators page surfaces operational signals associated with workforce stress risk. It does not measure employee wellbeing directly — it identifies operational patterns that research correlates with burnout risk and attrition.
+
 <Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
+  These indicators are derived from operational workforce data. They are correlated with workforce stress risk but are not direct measures of employee wellbeing or burnout.
 </Info>
 
-Full documentation for this section is coming soon.
+## Page sections
+
+### 1. Burnout Risk Index — Organization
+
+The top card shows the org-level BRI score (0–100) as a color-coded gauge:
+- 🟢 **0–33: Low** — No significant stress signals
+- 🟡 **34–66: Moderate** — One or more indicators elevated
+- 🔴 **67–100: High** — Multiple indicators compounding
+
+Below the gauge, four component sub-scores show the breakdown:
+- **OT Pressure** — overtime rate contribution
+- **Absence Pressure** — absence rate contribution
+- **Outflow Pressure** — outflow rate contribution
+- **Agency Dependency** — agency usage contribution
+
+The **Dominant Factor** callout identifies which component is driving the highest score.
+
+The **Trend badge** shows whether the org BRI is Improving, Stable, or Worsening vs. the prior period.
+
+See [Burnout Risk Index](/core-concepts/burnout-risk-index) for the full methodology.
+
+### 2. Risk by Unit
+
+A sortable table showing every unit's BRI score, risk level badge, and four component scores. Default sort: highest BRI first.
+
+Row color coding:
+- Red tint: High risk (BRI ≥ 67)
+- Amber tint: Moderate risk (BRI 34–66)
+- No tint: Low risk (BRI ≤ 33)
+
+Each row includes a **"View in Pulse Intelligence →"** link that deep-links to the Pulse Intelligence page filtered to that unit.
+
+### 3. Overtime Concentration
+
+A bar chart showing OT rate by unit for the current period. A horizontal reference line marks the OT warning threshold. Units exceeding the threshold are highlighted in amber or red.
+
+Toggle between **By Unit**, **By Provider Type**, and **By Sector** views.
+
+A 3-month average trend line overlay shows whether overtime is increasing or decreasing.
+
+**Why this matters:** Sustained overtime concentration in specific units is one of the strongest predictors of voluntary turnover in clinical roles. When the same units appear at the top of this chart month after month, it signals a structural staffing problem — not a scheduling issue.
+
+### 4. Absence Pattern Analysis
+
+A 12-month line chart showing absence rate trends for the top 5 highest-absence units. Each unit is a separate colored line. A horizontal reference line marks the absence warning threshold.
+
+Below the chart, a stat row shows: **"Sustained absence pressure — [N] units"** — the count of units where absence has trended upward for 3 or more consecutive months.
+
+**Why this matters:** Unplanned absence trending upward over 60–90 days is an early indicator of workforce stress and impending attrition — often appearing 4–8 weeks before outflow rate rises.
+
+### 5. Chronic Churn Detection
+
+Cards for each unit experiencing chronic churn — defined as outflow rate exceeding the warning threshold for **3 or more consecutive months**.
+
+Each card shows:
+- Unit name
+- Duration of elevated outflow (e.g. "5 consecutive months")
+- Affected provider types
+- Current outflow rate vs threshold
+
+**Chronic churn is distinct from normal turnover.** It indicates the same roles are being repeatedly vacated and filled without resolution of the underlying cause — a systems problem requiring structural intervention, not just recruitment effort.
+
+If no units meet the chronic churn threshold, an empty state displays: "No units currently flagged for chronic churn."
+
+### 6. Net Workforce Flow Pressure
+
+A table showing all units where outflow has exceeded inflow for 2 or more of the last 3 months.
+
+Columns: Unit | Avg Inflow FTE | Avg Outflow FTE | Net Flow | Consecutive Months Negative | Trend
+
+Net Flow is color-coded: red for negative (shrinking workforce), green for positive (growing workforce).
+
+**Why this matters:** Units where outflow consistently exceeds inflow are absorbing compounding workload pressure on remaining staff — a key precursor to further burnout and attrition.
+
+## Methodology disclosure
+
+Click **"How these indicators are calculated"** at the bottom of the page for a full methodology disclosure including data sources, limitations, and appropriate use guidance.

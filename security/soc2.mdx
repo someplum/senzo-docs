@@ -5,8 +5,54 @@ description: Senzo's SOC 2 compliance status and timeline
 
 # SOC 2
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+## Current status
 
-Full documentation for this section is coming soon.
+Senzo is currently **SOC 2 in progress**. We are building toward SOC 2 Type I certification, with Type II to follow.
+
+## What SOC 2 means
+
+SOC 2 is a third-party audit of a company's security, availability, and data handling practices against the AICPA Trust Services Criteria. A SOC 2 report provides assurance to customers that controls are in place and operating effectively.
+
+- **Type I** — confirms controls are designed correctly at a point in time
+- **Type II** — confirms controls operated effectively over a 6–12 month period
+
+Enterprise procurement teams at health systems typically require SOC 2 Type II before approving a vendor. We are building toward this.
+
+## Controls in place today
+
+While formal certification is in progress, Senzo has implemented the following controls:
+
+**Access control**
+- Authentication via Supabase Auth
+- Role-based access control with principle of least privilege
+- Row Level Security (RLS) enforced at the database level
+- Server-side super admin verification
+
+**Data protection**
+- Encryption in transit (TLS 1.2+)
+- Encryption at rest (AES-256)
+- Organization-level data isolation
+- No cross-organization data access possible
+
+**Incident response**
+- Security monitoring in place
+- Incident response process documented
+- Contact hello@senzohq.com for security disclosures
+
+**Vendor management**
+- Supabase (AWS ca-central-1) — SOC 2 Type II certified
+- Vercel — SOC 2 Type II certified
+- Anthropic Claude API — enterprise data handling agreements in place
+
+**Change management**
+- All code changes reviewed before deployment
+- No direct production database access
+- Migrations applied through controlled deployment pipeline
+
+## For enterprise procurement
+
+If your organization requires a security questionnaire, documentation of specific controls, or a call with our team to discuss security posture, contact hello@senzohq.com. We are committed to supporting your procurement process.
+
+## Timeline
+
+We will update this page when SOC 2 Type I certification is complete and when Type II audit begins. Target: SOC 2 Type I by end of 2026.

@@ -5,8 +5,98 @@ description: How Senzo resolves wide format, date variants, and other common fil
 
 # Handling Structural Issues
 
-<Info>
-  This page is being finalized. Contact hello@senzohq.com if you need immediate guidance on this topic.
-</Info>
+Senzo's AI upload analyzer detects and resolves common file structure problems automatically before any data is written. Each resolved issue is shown as an amber banner in the AI Analysis stage.
 
-Full documentation for this section is coming soon.
+## Wide format files \{#date-formats\}
+
+**What it is:** A file where periods (months) are columns instead of rows. Common in Excel-based workforce reports.
+
+```
+Unit        | Provider Type | Jan 2026 | Feb 2026 | Mar 2026
+ICU         | RN            | 45       | 47       | 46
+ICU         | LPN           | 12       | 11       | 13
+```
+
+**What Senzo does:** Detects when 3 or more column headers appear to contain date values, then transposes the file from wide to long format automatically.
+
+```
+Date       | Unit | Provider Type | Headcount
+2026-01-01 | ICU  | RN            | 45
+2026-02-01 | ICU  | RN            | 47
+2026-03-01 | ICU  | RN            | 46
+```
+
+**Banner shown:** "Wide format detected — [N] date columns transposed to long format ([X] rows → [Y] rows)"
+
+---
+
+## Date format variants \{#date-formats\}
+
+Senzo recognizes and converts the following date formats to `YYYY-MM-01`:
+
+| Source format | Example | Converted to |
+|---|---|---|
+| `YYYYMM` | `202602` | `2026-02-01` |
+| `MM/DD/YYYY` | `02/01/2026` | `2026-02-01` |
+| `DD/MM/YYYY` | `01/02/2026` | `2026-02-01` |
+| `YYYY-MM-DD` | `2026-02-15` | `2026-02-01` |
+| `Month YYYY` | `February 2026` | `2026-02-01` |
+| `Mon YYYY` | `Feb 2026` | `2026-02-01` |
+| `YYYY-QN` | `2026-Q1` | `2026-01-01` (first month of quarter) |
+
+**Banner shown:** "Date format '[format]' detected — converted to standard format automatically"
+
+<Note>
+  For `DD/MM/YYYY` vs `MM/DD/YYYY`, Senzo uses context clues (values above 12 in either position) to determine which format is in use. Ambiguous dates (e.g. `02/03/2026`) are assumed to be `MM/DD/YYYY`. If your file uses `DD/MM/YYYY`, verify the conversion in the mapping table.
+</Note>
+
+---
+
+## Blank leading rows
+
+**What it is:** Files that start with one or more empty rows before the header row — common in reports with a title or report metadata at the top.
+
+**What Senzo does:** Removes blank rows from the start of the file and identifies the first non-empty row as the header.
+
+**Banner shown:** "[N] blank rows detected at the start of the file — removed automatically"
+
+---
+
+## Summary and total rows
+
+**What it is:** Rows labeled "Total", "Grand Total", "Subtotal", or "Summary" mixed in with data rows.
+
+**What Senzo does:** Detects rows where the first cell contains these labels (case-insensitive) and excludes them from import.
+
+**Banner shown:** "Summary row detected on row [N] ('[label]') — excluded from import"
+
+---
+
+## Currency and percentage symbols
+
+**What it is:** Numeric fields containing currency symbols ($, £, €) or percentage signs (%) that prevent numeric parsing.
+
+**What Senzo does:** Strips currency symbols and comma separators from fields mapped to numeric targets. Converts percentage values (e.g. `12.5%`) to decimals (e.g. `0.125`) for fields mapped to rate columns.
+
+**Banner shown:** Shown as a transformation note in the mapping table row.
+
+---
+
+## Multi-row headers
+
+**What it is:** Files where the column headers span two rows — common in Excel reports with merged header cells.
+
+**What Senzo does:** Detects when the first row contains mostly non-data values and the second row contains the actual column names. Uses the second row as the header.
+
+---
+
+## What Senzo cannot fix automatically
+
+Some issues require manual correction before re-uploading:
+
+- **Completely malformed dates** — values like `0000-00-00`, `N/A`, or random text in the date column
+- **Mixed date formats in the same column** — e.g. some rows with `MM/DD/YYYY` and others with `YYYY-MM-DD`
+- **Duplicate rows** — same date/unit/provider type combination appearing more than once
+- **Negative values** — in fields that should never be negative (headcount, hours)
+
+These issues will be flagged as validation errors in the Review stage.
