@@ -18,7 +18,7 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hello@senzohq.com"
+      "url": "mailto:info@senzohq.com"
     }
   ],
   "topbarCtaButton": {
@@ -44,12 +44,12 @@
     {
       "name": "Book a Demo",
       "icon": "calendar",
-      "url": "mailto:hello@senzohq.com?subject=Senzo Demo Request"
+      "url": "mailto:info@senzohq.com?subject=Senzo Demo Request"
     },
     {
       "name": "Support",
       "icon": "envelope",
-      "url": "mailto:hello@senzohq.com"
+      "url": "mailto:info@senzohq.com"
     }
   ],
   "navigation": [
