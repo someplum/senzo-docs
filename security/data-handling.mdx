@@ -7,42 +7,55 @@ description: How Senzo stores, processes, and protects your workforce data
 
 ## Infrastructure
 
-Senzo is built on **Supabase** (PostgreSQL database) hosted on AWS, and deployed via **Vercel**. All infrastructure is SOC 2 compliant at the vendor level.
+Senzo is hosted on two service providers:
 
-## Data storage
+- **Supabase** — database and sign-in, on AWS in Canada (ca-central-1, Montréal)
+- **Vercel** — application servers, in the United States (Washington, D.C.)
 
-- All data is stored in a PostgreSQL database hosted in Canada (AWS ca-central-1 region)
-- Each organization's data is logically isolated — Row Level Security (RLS) policies enforce that queries only return data belonging to the authenticated organization
-- No cross-organization data access is possible at the application or database level
+Supabase holds a SOC 2 Type II report, and Vercel a SOC 2 Type II attestation.
+
+## Where your data is stored and processed
+
+- Senzo's database is in Canada.
+- Senzo's application servers, which handle every request that reads or changes your data, are in the United States.
+- The AI features below send some data to Anthropic.
+- The weekly digest email, which contains your organization's metrics and alerts, is sent through Resend, an email delivery service.
+
+## Who can see your data
+
+- Users can see data only for organizations Senzo has added them to. Row Level Security is switched on for every database table that signed-in users can query, and tables holding customer data return only rows for the user's own organizations.
+- Senzo staff with the Super Admin role can see all organizations, to run and support the service. See [Role-Based Access Control](/security/role-based-access).
 
 ## Encryption
 
-- **In transit:** All data is encrypted via TLS 1.2+ between your browser and Senzo's servers
-- **At rest:** Database storage is encrypted using AES-256
+- **In transit:** connections to Senzo use HTTPS (TLS)
+- **At rest:** Supabase encrypts stored data with AES-256
 
 ## Data you upload
 
-Workforce metrics data uploaded to Senzo:
+Workforce data uploaded to Senzo:
 - Is stored in Senzo's database under your organization's account
-- Is not shared with any third parties
-- Is not used to train AI models
-- Is retained for the duration of your subscription and deleted upon account closure (on request)
+- Is shared only with the service providers named on this page, to run Senzo
+- Is not used by Senzo to train AI models
+- Stays in Senzo until you ask us to delete it
 
 ## AI processing
 
-Senzo uses the **Anthropic Claude API** for two features:
-1. **AI Upload Analyzer** — a sample of your file (first 50 rows and column headers) is sent to the Claude API for schema analysis
-2. **Pulse Intelligence** — aggregated metric summaries (not raw data) are sent to the Claude API to generate intelligence briefings
+Senzo uses Anthropic's Claude API in three places. The requests come from Senzo's servers; your browser never contacts Anthropic.
 
-In both cases, only the minimum necessary data is sent. Raw individual-level data is never transmitted to Anthropic. Anthropic's zero data retention policy applies to API calls.
+1. **Upload column mapping.** If your file's column names match Senzo's standard template, match a mapping your organization saved before, or at least half of them are recognized, Senzo maps the file itself and nothing is sent to the AI. Otherwise the column headers and the first 10 rows are sent to Claude, which proposes a mapping. The rows are sent as they are, including any names or other personal details in them.
+2. **Organization Config files.** When you upload an Organization Config file, up to its first 50 rows (your facility, unit and provider type setup) are sent to Claude to check for problems.
+3. **Ask Senzo.** Your question, your organization's name, and the metrics Senzo looks up to answer it are sent to Claude. These are totals and rates by unit, provider type and period, plus current alerts — not records about individual staff.
+
+Pulse Intelligence does not use AI. Its briefs come from Senzo's own rules and your thresholds.
+
+Anthropic deletes API inputs and outputs within 30 days by default, and keeps them longer only in cases its policy lists, such as enforcing its Usage Policy or meeting a legal requirement ([Anthropic's retention policy](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-commercial-api-data)). Anthropic's [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) do not allow it to train models on this data.
 
 ## Access controls
 
-- Authentication is handled by **Supabase Auth** (email/password)
-- Sessions use secure HTTP-only cookies
-- Role-based access control limits what each user can see and do
-- All API routes verify user authentication and organization membership before returning data
+- Sign-in is handled by **Supabase Auth** (email and password, at least 12 characters)
+- Each user's role (Admin, Analyst or Viewer) limits what they can do. See [Role-Based Access Control](/security/role-based-access)
 
 ## Data deletion
 
-To request deletion of your organization's data, contact info@senzohq.com. Data deletion is completed within 30 days of request.
+To request deletion of your organization's data, contact info@senzohq.com.
