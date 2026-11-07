@@ -1,13 +1,13 @@
 ---
 title: SOC 2
-description: Senzo's SOC 2 compliance status and timeline
+description: Senzo's SOC 2 status and the security controls in place today
 ---
 
 # SOC 2
 
 ## Current status
 
-Senzo is currently **SOC 2 in progress**. We are building toward SOC 2 Type I certification, with Type II to follow.
+Senzo does not have a SOC 2 report yet.
 
 ## What SOC 2 means
 
@@ -16,43 +16,30 @@ SOC 2 is a third-party audit of a company's security, availability, and data han
 - **Type I** — confirms controls are designed correctly at a point in time
 - **Type II** — confirms controls operated effectively over a 6–12 month period
 
-Enterprise procurement teams at health systems typically require SOC 2 Type II before approving a vendor. We are building toward this.
+Enterprise procurement teams at health systems typically require SOC 2 Type II before approving a vendor.
 
 ## Controls in place today
 
-While formal certification is in progress, Senzo has implemented the following controls:
-
 **Access control**
-- Authentication via Supabase Auth
-- Role-based access control with principle of least privilege
-- Row Level Security (RLS) enforced at the database level
-- Server-side super admin verification
+- Sign-in through Supabase Auth, with passwords of at least 12 characters
+- Role-based access (Admin, Analyst, Viewer)
+- Row Level Security enforced in the database
+- Super Admin access checked on the server
 
 **Data protection**
-- Encryption in transit (TLS 1.2+)
-- Encryption at rest (AES-256)
-- Organization-level data isolation
-- No cross-organization data access possible
+- Encryption in transit (HTTPS/TLS)
+- Encryption at rest (AES-256, by Supabase)
+- Each customer organization's data is kept separate from other customers' data (see [Data Handling](/security/data-handling))
 
-**Incident response**
-- Security monitoring in place
-- Incident response process documented
-- Contact info@senzohq.com for security disclosures
+**Security contact**
+- Report security issues to info@senzohq.com
 
-**Vendor management**
-- Supabase (AWS ca-central-1) — SOC 2 Type II certified
-- Vercel — SOC 2 Type II certified
-- Anthropic Claude API — enterprise data handling agreements in place
-
-**Change management**
-- All code changes reviewed before deployment
-- No direct production database access
-- Migrations applied through controlled deployment pipeline
+**Service providers**
+- Supabase (database and sign-in; AWS ca-central-1, Montréal) — SOC 2 Type II report
+- Vercel (application servers; Washington, D.C.) — SOC 2 Type II attestation
+- Anthropic (Claude API) — its Commercial Terms do not allow it to train models on Senzo customers' data
+- Resend (weekly digest email)
 
 ## For enterprise procurement
 
-If your organization requires a security questionnaire, documentation of specific controls, or a call with our team to discuss security posture, contact info@senzohq.com. We are committed to supporting your procurement process.
-
-## Timeline
-
-We will update this page when SOC 2 Type I certification is complete and when Type II audit begins. Target: SOC 2 Type I by end of 2026.
+If your organization requires a security questionnaire, documentation of specific controls, or a call with our team to discuss security posture, contact info@senzohq.com.

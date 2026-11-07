@@ -11,13 +11,13 @@ Senzo's AI upload analyzer removes the need to reformat your data before uploadi
 
 When you upload a file, Senzo:
 
-1. Reads the first 50 rows and all column headers
-2. Sends this sample to Claude (Anthropic's AI) for analysis
+1. Checks your column names. If they match Senzo's standard template, match a mapping your organization saved before, or at least half of them are recognized, Senzo maps the file itself and nothing is sent to the AI
+2. Otherwise, sends the column headers and the first 10 rows to Claude (Anthropic's AI) for analysis
 3. Receives a structured mapping proposal with confidence scores
 4. Displays the mapping for your review and confirmation
 5. Applies any transformations before import
 
-The AI has no access to the rest of your data — only the headers and sample rows sent for analysis.
+The AI receives only the column headers and those first 10 rows.
 
 ## The mapping table
 
@@ -85,11 +85,14 @@ Review the pre-loaded mapping and confirm or adjust as needed.
 
 If your file already matches the standard template exactly, click **"Skip AI Analysis — use standard template"** to bypass the AI step and proceed directly to Review. This is faster for organizations that export data in a consistent format every month.
 
+Analysis starts as soon as you reach this step, so skipping does not stop rows that were already sent. To make sure no rows are sent, use the standard template's column names.
+
 ## Privacy and data handling
 
-- Only the first 50 rows and column headers are sent to the AI for analysis
-- The analysis request is processed server-side — your browser does not send data directly to Anthropic
-- No data is retained by Anthropic beyond the analysis call
+- The AI receives the column headers and the first 10 rows, and only when Senzo can't map the file itself
+- Those rows are sent as they are, including any names or other personal details in them
+- The request comes from Senzo's servers — your browser does not send data directly to Anthropic
+- Anthropic deletes API data within 30 days by default; see [Data Handling](/security/data-handling#ai-processing)
 - The full file is processed within Senzo's infrastructure only
 
 ## See also
