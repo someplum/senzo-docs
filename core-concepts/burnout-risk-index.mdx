@@ -17,7 +17,7 @@ The Burnout Risk Index (BRI) is a composite operational metric that combines fou
 BRI = (OT_score × 0.30) + (absence_score × 0.25) + (outflow_score × 0.25) + (agency_score × 0.20)
 ```
 
-Each component score is normalized on a 0–100 scale based on configured thresholds.
+Each component score is normalized on a 0–100 scale based on Senzo's standard thresholds.
 
 ## Component weights
 
@@ -39,7 +39,7 @@ Each component is scored 0–100 using linear interpolation between the followin
 | Outflow rate | ≤1% | Warning threshold | Critical threshold |
 | Agency rate | ≤2% | Warning threshold | Critical threshold |
 
-Thresholds are configured in **Alert Rules**. The default values are set to healthcare industry benchmarks but can be adjusted for your organization.
+These are Senzo's standard thresholds (see [Thresholds and Alert Rules](/core-concepts/thresholds-and-alerts)). Alert rules don't change them.
 
 ## Risk levels
 
@@ -75,4 +75,4 @@ The organization-level BRI is a headcount-weighted average of all unit BRIs. It 
 ## See also
 
 - [Workforce Stress Indicators](/features/workforce-stress-indicators) — the full UI for BRI analysis
-- [Thresholds and Alert Rules](/core-concepts/thresholds-and-alerts) — configuring the thresholds that drive component scores
+- [Thresholds and Alert Rules](/core-concepts/thresholds-and-alerts) — the standard thresholds that drive component scores

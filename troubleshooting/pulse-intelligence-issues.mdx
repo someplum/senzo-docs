@@ -11,9 +11,9 @@ description: Common problems with Pulse Intelligence and how to resolve them
 
 1. **No data uploaded yet** — Pulse Intelligence requires workforce data to analyze. Upload data first via the Upload Data page.
 
-2. **All metrics are below threshold** — If your organization's metrics are all within normal ranges, Pulse Intelligence will show a "Low Risk" status with no warnings. This is the correct behavior — it means your workforce is performing well against the configured thresholds.
+2. **All metrics are below threshold** — If your organization's metrics are all within normal ranges, Pulse Intelligence will show a "Low Risk" status with no warnings. This is the correct behavior — it means your workforce is performing well against Senzo's standard thresholds.
 
-3. **Thresholds are set too high** — If thresholds are set significantly above your organization's actual metric levels, nothing will trigger. Review your thresholds in Alert Rules.
+3. **Alert rules don't change findings** — Pulse Intelligence uses Senzo's standard thresholds, so editing alert rules won't make it flag more or less. See [Thresholds and Alert Rules](/core-concepts/thresholds-and-alerts).
 
 4. **Data covers only one period** — Some Pulse Intelligence findings (trend analysis, duration flags) require multiple periods of data. Upload at least 3 months of data for full finding coverage.
 
@@ -31,7 +31,7 @@ This is almost always a calculation methodology difference. Check [How Metrics A
 
 **A unit I know is struggling isn't flagged:**
 
-Either the unit's metrics are below the configured thresholds, or the data for that unit is incomplete. Check the unit's values in Data Explorer to see what Senzo has. If key fields like `worked_hours` or `scheduled_hours` are missing, Senzo can't calculate the relevant rates.
+Either the unit's metrics are below Senzo's standard thresholds, or the data for that unit is incomplete. Check the unit's values in Data Explorer to see what Senzo has. If key fields like `worked_hours` or `scheduled_hours` are missing, Senzo can't calculate the relevant rates.
 
 ---
 
