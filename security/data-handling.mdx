@@ -47,7 +47,7 @@ Senzo uses Anthropic's Claude API in three places. The requests come from Senzo'
 2. **Organization Config files.** When you upload an Organization Config file, up to its first 50 rows (your facility, unit and provider type setup) are sent to Claude to check for problems.
 3. **Ask Senzo.** Your question, your organization's name, and the metrics Senzo looks up to answer it are sent to Claude. These are totals and rates by unit, provider type and period, plus current alerts — not records about individual staff.
 
-Pulse Intelligence does not use AI. Its briefs come from Senzo's own rules and your thresholds.
+Pulse Intelligence does not use AI. Its briefs come from Senzo's own rules and standard thresholds.
 
 Anthropic deletes API inputs and outputs within 30 days by default, and keeps them longer only in cases its policy lists, such as enforcing its Usage Policy or meeting a legal requirement ([Anthropic's retention policy](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-commercial-api-data)). Anthropic's [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) do not allow it to train models on this data.
 
