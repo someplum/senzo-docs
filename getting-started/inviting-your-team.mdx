@@ -15,7 +15,7 @@ Senzo supports role-based access control so different team members see the right
 | **Analyst** | Views every monitoring, analysis and reporting section; can upload data and edit organization configuration |
 | **Viewer** | Read-only — views the monitoring, analysis and reporting sections, but cannot upload data or change configuration |
 
-Viewers do not see **Configure → Upload Data** in the sidebar; opening the upload page directly shows an access notice instead of the wizard. **Alert Rules** and **Settings** appear for Admins only; anyone else who opens them directly sees an access notice.
+Viewers do not see **Configure → Upload Data** in the sidebar; opening the upload page directly shows an access notice instead of the wizard. **Alert Rules** and **Settings** appear in the sidebar for Admins only. Anyone else who opens Settings directly sees an access notice; on Alert Rules they see the alerts, but not the rule editor.
 
 ## Getting an account set up
 
@@ -48,6 +48,6 @@ After setting a password, someone with access to one Senzo product goes straight
     Help your team get oriented with the Overview dashboard
   </Card>
   <Card title="Alert Rules" icon="sliders" href="/features/alert-rules">
-    Set up threshold-based alerts so your team is notified when metrics exceed limits
+    Set up rules that raise alerts when metrics cross your limits
   </Card>
 </CardGroup>
